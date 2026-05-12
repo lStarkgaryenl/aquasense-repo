@@ -8,118 +8,73 @@
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script id="tailwind-config">
-tailwind.config = {
-  darkMode: "class",
-  theme: {
-    extend: {
-      colors: {
-        "on-tertiary":"#ffffff","surface-dim":"#d9dadb","surface-container":"#edeeef",
-        "surface-variant":"#e1e3e4","on-error-container":"#93000a","primary":"#00535b",
-        "on-tertiary-container":"#a9ece4","surface-container-lowest":"#ffffff",
-        "surface-tint":"#006972","secondary":"#006685","on-tertiary-fixed-variant":"#00504b",
-        "primary-fixed-dim":"#82d3de","tertiary-fixed-dim":"#90d3cb",
-        "surface-container-low":"#f3f4f5","primary-container":"#006d77",
-        "on-secondary-container":"#005b77","on-secondary":"#ffffff",
-        "inverse-surface":"#2e3132","inverse-primary":"#82d3de",
-        "on-tertiary-fixed":"#00201e","tertiary-fixed":"#acefe7",
-        "on-secondary-fixed-variant":"#004d65","on-error":"#ffffff",
-        "tertiary-container":"#286d67","on-primary-fixed":"#001f23",
-        "on-primary-container":"#9becf7","on-secondary-fixed":"#001f2a",
-        "on-primary":"#ffffff","on-primary-fixed-variant":"#004f56",
-        "error":"#ba1a1a","primary-fixed":"#9ff0fb","outline":"#6f797a",
-        "on-surface-variant":"#3e494a","surface-bright":"#f8f9fa",
-        "inverse-on-surface":"#f0f1f2","surface-container-high":"#e7e8e9",
-        "background":"#f8f9fa","surface-container-highest":"#e1e3e4",
-        "on-background":"#191c1d","surface":"#f8f9fa","outline-variant":"#bec8ca",
-        "error-container":"#ffdad6","tertiary":"#01544f","secondary-container":"#79d4fe",
-        "secondary-fixed-dim":"#76d2fb","secondary-fixed":"#bfe9ff","on-surface":"#191c1d"
-      },
-      borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},
-      spacing:{"max_width":"1440px","margin":"32px","xl":"32px","sm":"8px","gutter":"24px","lg":"24px","md":"16px","xs":"4px","base":"4px"},
-      fontFamily:{"headline-lg":["Public Sans"],"body-lg":["Inter"],"body-md":["Inter"],"display-lg":["Public Sans"],"headline-md":["Public Sans"],"headline-lg-mobile":["Public Sans"],"title-lg":["Inter"],"label-md":["Inter"],"label-bold":["Inter"]},
-      fontSize:{
-        "headline-lg":["32px",{"lineHeight":"40px","fontWeight":"600"}],
-        "body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],
-        "body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],
-        "display-lg":["48px",{"lineHeight":"56px","letterSpacing":"-0.02em","fontWeight":"700"}],
-        "headline-md":["24px",{"lineHeight":"32px","fontWeight":"600"}],
-        "headline-lg-mobile":["24px",{"lineHeight":"32px","fontWeight":"600"}],
-        "title-lg":["18px",{"lineHeight":"24px","fontWeight":"600"}],
-        "label-md":["12px",{"lineHeight":"16px","fontWeight":"500"}],
-        "label-bold":["12px",{"lineHeight":"16px","letterSpacing":"0.05em","fontWeight":"700"}]
-      }
-    }
-  }
-}
+tailwind.config={darkMode:"class",theme:{extend:{"colors":{"on-tertiary":"#ffffff","surface-dim":"#d9dadb","surface-container":"#edeeef","surface-variant":"#e1e3e4","on-error-container":"#93000a","primary":"#00535b","on-tertiary-container":"#a9ece4","surface-container-lowest":"#ffffff","surface-tint":"#006972","secondary":"#006685","on-tertiary-fixed-variant":"#00504b","primary-fixed-dim":"#82d3de","tertiary-fixed-dim":"#90d3cb","surface-container-low":"#f3f4f5","primary-container":"#006d77","on-secondary-container":"#005b77","on-secondary":"#ffffff","inverse-surface":"#2e3132","inverse-primary":"#82d3de","on-tertiary-fixed":"#00201e","tertiary-fixed":"#acefe7","on-secondary-fixed-variant":"#004d65","on-error":"#ffffff","tertiary-container":"#286d67","on-primary-fixed":"#001f23","on-primary-container":"#9becf7","on-secondary-fixed":"#001f2a","on-primary":"#ffffff","on-primary-fixed-variant":"#004f56","error":"#ba1a1a","primary-fixed":"#9ff0fb","outline":"#6f797a","on-surface-variant":"#3e494a","surface-bright":"#f8f9fa","inverse-on-surface":"#f0f1f2","surface-container-high":"#e7e8e9","background":"#f8f9fa","surface-container-highest":"#e1e3e4","on-background":"#191c1d","surface":"#f8f9fa","outline-variant":"#bec8ca","error-container":"#ffdad6","tertiary":"#01544f","secondary-container":"#79d4fe","secondary-fixed-dim":"#76d2fb","secondary-fixed":"#bfe9ff","on-surface":"#191c1d"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"max_width":"1440px","margin":"32px","xl":"32px","sm":"8px","gutter":"24px","lg":"24px","md":"16px","xs":"4px","base":"4px"},"fontFamily":{"headline-lg":["Public Sans"],"body-lg":["Inter"],"body-md":["Inter"],"display-lg":["Public Sans"],"headline-md":["Public Sans"],"headline-lg-mobile":["Public Sans"],"title-lg":["Inter"],"label-md":["Inter"],"label-bold":["Inter"]},"fontSize":{"headline-lg":["32px",{"lineHeight":"40px","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"display-lg":["48px",{"lineHeight":"56px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-md":["24px",{"lineHeight":"32px","fontWeight":"600"}],"headline-lg-mobile":["24px",{"lineHeight":"32px","fontWeight":"600"}],"title-lg":["18px",{"lineHeight":"24px","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","fontWeight":"500"}],"label-bold":["12px",{"lineHeight":"16px","letterSpacing":"0.05em","fontWeight":"700"}]}}}}
 </script>
 <style>
-  .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}
-  body{background-color:#f8f9fa;color:#191c1d;}
-  .critical-pulse{animation:cpulse 2s infinite;}
-  @keyframes cpulse{0%,100%{box-shadow:0 0 0 0 rgba(186,26,26,0.2)}50%{box-shadow:0 0 0 8px rgba(186,26,26,0)}}
-  .custom-scroll::-webkit-scrollbar{width:4px}
-  .custom-scroll::-webkit-scrollbar-track{background:#f1f1f1;border-radius:4px}
-  .custom-scroll::-webkit-scrollbar-thumb{background:#bec8ca;border-radius:4px}
+.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}
+body{background-color:#f8f9fa;color:#191c1d;}
+.critical-pulse{animation:cpulse 2s infinite;}
+@keyframes cpulse{0%,100%{box-shadow:0 0 0 0 rgba(186,26,26,0.2)}50%{box-shadow:0 0 0 6px rgba(186,26,26,0)}}
+.custom-scroll::-webkit-scrollbar{width:4px}
+.custom-scroll::-webkit-scrollbar-thumb{background:#bec8ca;border-radius:4px}
 </style>
 </head>
 <body class="font-body-md text-on-surface">
 
 <!-- SIDEBAR -->
-<aside class="h-screen w-64 fixed left-0 top-0 flex flex-col p-md bg-surface-container-low shadow-sm z-50">
+<aside class="h-screen w-64 fixed left-0 top-0 flex flex-col h-full p-md bg-surface-container-low shadow-sm z-50">
   <div class="flex items-center gap-md mb-xl px-sm">
     <svg width="40" height="40" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-      <defs><linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" style="stop-color:#006D77;stop-opacity:1"/>
-        <stop offset="100%" style="stop-color:#00535b;stop-opacity:1"/>
-      </linearGradient></defs>
+      <defs><linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#006D77"/><stop offset="100%" style="stop-color:#00535b"/></linearGradient></defs>
       <path d="M100 20 C60 80 40 110 40 140 A60 60 0 0 0 160 140 C160 110 140 80 100 20 Z" fill="url(#lg1)"/>
       <path d="M70 140 Q100 120 130 140 T190 140" fill="none" stroke="white" stroke-width="8" stroke-linecap="round" opacity="0.6"/>
       <circle cx="100" cy="140" r="15" fill="white" opacity="0.3"/>
     </svg>
     <div>
       <h1 class="font-headline-md text-headline-md font-semibold text-primary">AquaSense AI</h1>
-      <p class="font-label-md text-label-md text-on-surface-variant">Sistema de Monitoreo</p>
+      <p class="font-label-md text-label-md text-on-surface-variant">Monitoring System</p>
     </div>
   </div>
   <nav class="flex flex-col gap-xs grow">
-    <a class="flex items-center gap-md px-md py-sm bg-secondary-container text-on-secondary-container rounded-lg duration-150" href="#">
+    <a class="flex items-center gap-md px-md py-sm bg-secondary-container text-on-secondary-container rounded-lg active:scale-95 duration-150 transition-colors" href="#">
       <span class="material-symbols-outlined">dashboard</span><span class="font-body-md">Dashboard</span>
     </a>
-    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
-      <span class="material-symbols-outlined">map</span><span class="font-body-md">Mapa de Estaciones</span>
+    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-95 duration-150 rounded-lg" href="#">
+      <span class="material-symbols-outlined">map</span><span class="font-body-md">Station Map</span>
     </a>
-    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
-      <span class="material-symbols-outlined">notifications</span><span class="font-body-md">Alertas</span>
+    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-95 duration-150 rounded-lg" href="#">
+      <span class="material-symbols-outlined">notifications</span><span class="font-body-md">Alerts</span>
     </a>
-    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
-      <span class="material-symbols-outlined">analytics</span><span class="font-body-md">Analítica</span>
+    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-95 duration-150 rounded-lg" href="#">
+      <span class="material-symbols-outlined">analytics</span><span class="font-body-md">Analytics</span>
     </a>
   </nav>
   <div class="mt-auto border-t border-outline-variant pt-md">
-    <div class="flex items-center gap-md px-md py-sm text-on-surface-variant">
-      <span class="material-symbols-outlined">wifi_tethering</span>
-      <div>
-        <p class="font-label-bold text-label-bold text-on-surface">Red LoRa · ESP32</p>
-        <p class="font-label-md text-label-md text-on-surface-variant">ODS 6 · Ecuador</p>
-      </div>
-    </div>
-    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
-      <span class="material-symbols-outlined">settings</span><span class="font-body-md">Configuración</span>
+    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-95 duration-150 rounded-lg" href="#">
+      <span class="material-symbols-outlined">settings</span><span class="font-body-md">Settings</span>
     </a>
   </div>
 </aside>
 
 <!-- HEADER -->
 <header class="flex justify-between items-center w-full px-xl py-md ml-64 max-w-[calc(100%-256px)] top-0 sticky z-40 bg-surface border-b border-outline-variant">
-  <h2 class="font-headline-md text-headline-md font-bold text-primary">Vista General del Sistema</h2>
+  <h2 class="font-headline-md text-headline-md font-bold text-primary">System Overview</h2>
   <div class="flex items-center gap-lg">
-    <span id="reloj-header" class="font-label-bold text-label-bold text-on-surface-variant">--:--:--</span>
-    <button onclick="cargarDatos()" class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-all duration-200">refresh</button>
+    <div class="flex items-center gap-md">
+      <span id="reloj" class="font-label-bold text-label-bold text-on-surface-variant">--:--:--</span>
+      <button onclick="cargarDatos()" class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-all duration-200">refresh</button>
+      <span class="material-symbols-outlined text-on-surface-variant">wifi_tethering</span>
+    </div>
     <div class="h-8 w-px bg-outline-variant"></div>
-    <span class="flex items-center gap-xs px-md py-xs bg-primary/10 text-primary rounded-full font-label-bold text-label-bold">
-      <span class="w-2 h-2 rounded-full bg-primary animate-pulse inline-block"></span>
-      Sistema Activo
-    </span>
+    <div class="flex items-center gap-md">
+      <div class="text-right">
+        <p class="font-label-bold text-label-bold text-on-surface">AquaSense AI</p>
+        <p class="font-label-md text-label-md text-on-surface-variant">Sistema Activo · ODS 6</p>
+      </div>
+      <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+        <span class="material-symbols-outlined text-white text-sm" style="font-variation-settings:'FILL' 1;">water_drop</span>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -127,124 +82,113 @@ tailwind.config = {
 <main class="ml-64 p-xl max-w-[calc(100%-256px)] flex flex-col gap-xl">
 
   <!-- STATS -->
-  <section class="grid grid-cols-4 gap-gutter">
+  <section class="grid grid-cols-1 md:grid-cols-4 gap-gutter">
     <div class="bg-white p-md rounded-lg shadow-sm border border-surface-container flex items-center gap-md">
-      <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-        <span class="material-symbols-outlined text-primary" style="font-variation-settings:'FILL' 1;">sensors</span>
+      <div class="w-12 h-12 rounded-full bg-primary-container/10 flex items-center justify-center text-primary-container">
+        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">sensors</span>
       </div>
-      <div><p class="font-label-bold text-label-bold text-on-surface-variant">SENSORES ACTIVOS</p>
+      <div><p class="font-label-bold text-label-bold text-on-surface-variant">ACTIVE STATIONS</p>
       <p id="stat-sensores" class="font-headline-md text-headline-md text-primary">—</p></div>
     </div>
     <div class="bg-white p-md rounded-lg shadow-sm border border-surface-container flex items-center gap-md">
-      <div class="w-12 h-12 rounded-full bg-error/10 flex items-center justify-center">
-        <span class="material-symbols-outlined text-error" style="font-variation-settings:'FILL' 1;">warning</span>
+      <div class="w-12 h-12 rounded-full bg-error-container/20 flex items-center justify-center text-error">
+        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">warning</span>
       </div>
-      <div><p class="font-label-bold text-label-bold text-on-surface-variant">ALERTAS ACTIVAS</p>
+      <div><p class="font-label-bold text-label-bold text-on-surface-variant">ACTIVE ALERTS</p>
       <p id="stat-alertas" class="font-headline-md text-headline-md text-error">—</p></div>
     </div>
     <div class="bg-white p-md rounded-lg shadow-sm border border-surface-container flex items-center gap-md">
-      <div class="w-12 h-12 rounded-full bg-tertiary/10 flex items-center justify-center">
-        <span class="material-symbols-outlined text-tertiary" style="font-variation-settings:'FILL' 1;">location_on</span>
+      <div class="w-12 h-12 rounded-full bg-tertiary-container/10 flex items-center justify-center text-tertiary">
+        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">location_on</span>
       </div>
-      <div><p class="font-label-bold text-label-bold text-on-surface-variant">PUNTOS CRÍTICOS</p>
+      <div><p class="font-label-bold text-label-bold text-on-surface-variant">CRITICAL POINTS</p>
       <p id="stat-criticos" class="font-headline-md text-headline-md text-tertiary">—</p></div>
     </div>
     <div class="bg-white p-md rounded-lg shadow-sm border border-surface-container flex items-center gap-md">
-      <div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center">
-        <span class="material-symbols-outlined text-secondary" style="font-variation-settings:'FILL' 1;">waves</span>
+      <div class="w-12 h-12 rounded-full bg-secondary-container/10 flex items-center justify-center text-secondary">
+        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">waves</span>
       </div>
-      <div><p class="font-label-bold text-label-bold text-on-surface-variant">CALIDAD PROMEDIO</p>
+      <div><p class="font-label-bold text-label-bold text-on-surface-variant">AVG. QUALITY</p>
       <p id="stat-calidad" class="font-headline-md text-headline-md text-secondary">—</p></div>
     </div>
   </section>
 
-  <!-- SENSOR CARDS + TRENDS en grid 12 cols -->
   <div class="grid grid-cols-12 gap-gutter">
 
-    <!-- SENSOR CARDS — 8 cols -->
-    <section class="col-span-8 flex flex-col gap-md">
-      <div class="flex justify-between items-center">
-        <h3 class="font-title-lg text-title-lg text-on-surface">Monitoreo en Vivo de Estaciones</h3>
-        <button onclick="cargarDatos()" class="text-primary font-label-bold hover:underline text-label-bold">↻ ACTUALIZAR</button>
-      </div>
-      <div id="sensors-grid" class="grid grid-cols-2 gap-gutter overflow-y-auto custom-scroll" style="max-height:calc(100vh - 280px)">
-        <div class="col-span-2 text-center p-xl text-on-surface-variant">Cargando estaciones...</div>
-      </div>
-    </section>
+    <!-- LEFT: Sensors + Trends -->
+    <div class="col-span-8 flex flex-col gap-xl">
 
-    <!-- TRENDS — 4 cols -->
-    <section class="col-span-4 flex flex-col gap-gutter">
-      <h3 class="font-title-lg text-title-lg text-on-surface">Tendencias Ambientales</h3>
+      <!-- SENSOR CARDS -->
+      <section>
+        <div class="flex justify-between items-center mb-md">
+          <h3 class="font-title-lg text-title-lg text-on-surface">Live Station Monitoring</h3>
+          <button onclick="cargarDatos()" class="text-primary font-label-bold hover:underline">↻ REFRESH</button>
+        </div>
+        <div id="sensors-grid" class="grid grid-cols-1 md:grid-cols-2 gap-gutter overflow-y-auto custom-scroll" style="max-height:520px">
+          <div class="col-span-2 text-center p-xl text-on-surface-variant">Loading stations...</div>
+        </div>
+      </section>
 
-      <!-- Chart panel -->
-      <div class="bg-white p-lg rounded-xl shadow-sm border border-surface-container flex flex-col gap-md">
-        <div class="flex justify-between items-start">
+      <!-- TRENDS -->
+      <section class="bg-white p-xl rounded-xl shadow-sm border border-surface-container">
+        <div class="flex justify-between items-end mb-lg">
           <div>
-            <p class="font-label-bold text-label-bold text-on-surface-variant">CALIDAD Y pH — 24H</p>
-            <p class="font-body-md text-on-surface-variant text-xs mt-xs">Variaciones por estación</p>
+            <h3 class="font-title-lg text-title-lg text-on-surface">Environmental Trends</h3>
+            <p class="font-body-md text-on-surface-variant">Aggregate quality and pH variations (Last 24h)</p>
           </div>
-          <select id="chart-sensor" onchange="actualizarGrafico()" class="bg-background border border-outline-variant rounded px-sm py-xs font-label-md text-on-surface-variant text-xs">
-            <option value="S-001">Machángara</option>
-            <option value="S-003">Esmeraldas</option>
-            <option value="S-005">Pastaza</option>
-            <option value="S-006">El Ángel</option>
+          <select id="chart-sensor" onchange="actualizarGrafico()" class="bg-background border border-outline-variant rounded px-md py-xs font-label-md text-on-surface-variant">
+            <option value="S-001">Río Machángara</option>
+            <option value="S-003">Río Esmeraldas</option>
+            <option value="S-005">Río Pastaza</option>
+            <option value="S-006">Páramo El Ángel</option>
           </select>
         </div>
-        <canvas id="chart-calidad" height="180"></canvas>
-      </div>
+        <canvas id="chart-calidad" height="110"></canvas>
+        <div class="pt-lg border-t border-surface-container mt-lg">
+          <div class="flex justify-between items-center mb-md">
+            <p class="font-label-bold text-on-surface-variant uppercase">pH Variance Range</p>
+            <span class="font-label-bold text-secondary">Target: 6.5 – 8.5</span>
+          </div>
+          <div class="relative w-full h-8 flex items-center">
+            <div class="absolute inset-0 bg-surface-container-highest rounded-full h-2 my-auto"></div>
+            <div class="absolute left-[46%] right-[39%] bg-secondary h-2 my-auto rounded-full"></div>
+            <div class="absolute left-[55%] w-4 h-4 bg-white border-2 border-primary rounded-full shadow-md z-10"></div>
+          </div>
+          <div class="flex justify-between mt-xs px-1">
+            <span class="font-label-md text-on-surface-variant">Acidic (0)</span>
+            <span class="font-label-md text-on-surface-variant">Neutral (7)</span>
+            <span class="font-label-md text-on-surface-variant">Alkaline (14)</span>
+          </div>
+        </div>
+      </section>
+    </div>
 
-      <!-- pH range -->
-      <div class="bg-white p-lg rounded-xl shadow-sm border border-surface-container flex flex-col gap-md">
-        <div class="flex justify-between items-center">
-          <p class="font-label-bold text-label-bold text-on-surface-variant">RANGO DE VARIACIÓN pH</p>
-          <span class="font-label-bold text-label-bold text-secondary">Objetivo: 6.5–8.5</span>
+    <!-- RIGHT: Alerts -->
+    <div class="col-span-4 flex flex-col gap-xl">
+      <section class="bg-white rounded-xl shadow-sm border border-surface-container overflow-hidden flex flex-col h-full">
+        <div id="alert-header" class="p-md bg-error-container/10 border-b border-error-container/20 flex items-center justify-between">
+          <h3 class="font-title-lg text-title-lg text-error flex items-center gap-xs">
+            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">error</span>
+            Active Alerts
+          </h3>
+          <span id="alert-badge" class="bg-error text-white text-[10px] px-sm py-[2px] rounded-full font-bold">0 NEW</span>
         </div>
-        <div class="relative w-full h-8 flex items-center">
-          <div class="absolute inset-0 bg-surface-container-highest rounded-full h-2 my-auto"></div>
-          <div class="absolute left-[46%] right-[39%] bg-secondary h-2 my-auto rounded-full"></div>
-          <div class="absolute left-[55%] w-4 h-4 bg-white border-2 border-primary rounded-full shadow-md z-10"></div>
+        <div id="alerts-list" class="p-md flex flex-col gap-md overflow-y-auto custom-scroll flex-1" style="max-height:400px">
+          <div class="text-center p-lg text-on-surface-variant font-label-md">Loading alerts...</div>
         </div>
-        <div class="flex justify-between">
-          <span class="font-label-md text-label-md text-on-surface-variant">Ácido (0)</span>
-          <span class="font-label-md text-label-md text-on-surface-variant">Neutro (7)</span>
-          <span class="font-label-md text-label-md text-on-surface-variant">Alcalino (14)</span>
+        <div class="p-md border-t border-surface-container">
+          <button class="w-full py-sm border border-outline-variant text-on-surface-variant rounded-lg font-label-bold hover:bg-surface-container-low transition-colors">
+            VIEW ALERT HISTORY
+          </button>
         </div>
-      </div>
+      </section>
+    </div>
 
-      <!-- Quick stats cards -->
-      <div class="grid grid-cols-2 gap-md">
-        <div class="bg-white p-md rounded-xl shadow-sm border border-surface-container">
-          <p class="font-label-bold text-label-bold text-on-surface-variant mb-xs">ÚLTIMA LECTURA</p>
-          <p id="stat-hora" class="font-headline-md text-headline-md text-primary" style="font-size:1.2rem">—</p>
-          <p class="font-label-md text-label-md text-on-surface-variant mt-xs">Actualización automática</p>
-        </div>
-        <div class="bg-white p-md rounded-xl shadow-sm border border-surface-container">
-          <p class="font-label-bold text-label-bold text-on-surface-variant mb-xs">SEÑAL LoRa</p>
-          <p class="font-headline-md text-headline-md text-primary" style="font-size:1.2rem" id="stat-lora">—</p>
-          <p class="font-label-md text-label-md text-on-surface-variant mt-xs">Promedio de red</p>
-        </div>
-      </div>
-
-      <!-- Alert summary -->
-      <div id="alert-summary" class="bg-white rounded-xl shadow-sm border border-surface-container overflow-hidden">
-        <div class="p-md bg-error-container/10 border-b border-error-container/20 flex items-center justify-between">
-          <h4 class="font-label-bold text-label-bold text-error flex items-center gap-xs">
-            <span class="material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1;">error</span>
-            ALERTAS PENDIENTES
-          </h4>
-          <span id="alert-badge" class="bg-error text-white text-[10px] px-sm py-[2px] rounded-full font-bold">0</span>
-        </div>
-        <div id="alerts-mini" class="p-md flex flex-col gap-sm overflow-y-auto custom-scroll" style="max-height:180px">
-          <div class="text-center text-on-surface-variant font-label-md p-md">Cargando...</div>
-        </div>
-      </div>
-
-    </section>
   </div>
 </main>
 
 <script>
-const API_BASE = '/api';
+const API_BASE = '/aquasense/api';
 let historialData = {};
 let chartInstance = null;
 
@@ -256,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function actualizarReloj() {
-  document.getElementById('reloj-header').textContent = new Date().toLocaleTimeString('es-EC');
+  document.getElementById('reloj').textContent = new Date().toLocaleTimeString('es-EC');
 }
 
 async function cargarDatos() {
@@ -266,33 +210,31 @@ async function cargarDatos() {
       fetch(`${API_BASE}/alertas.php`),
       fetch(`${API_BASE}/historial.php`)
     ]);
-    const sensores  = await sR.json();
-    const alertas   = await aR.json();
-    const historial = await hR.json();
-    historialData = historial.historial;
-    renderSensores(sensores);
-    renderAlertasMini(alertas);
-    actualizarStats(sensores, alertas);
+    const s = await sR.json();
+    const a = await aR.json();
+    const h = await hR.json();
+    historialData = h.historial;
+    renderSensores(s);
+    renderAlertas(a);
+    actualizarStats(s, a);
     actualizarGrafico();
   } catch(e) { console.error(e); }
 }
 
 function actualizarStats(s, a) {
-  document.getElementById('stat-sensores').textContent  = s.sensores.filter(x=>x.activo).length;
-  document.getElementById('stat-alertas').textContent   = a.alertas_pendientes;
-  document.getElementById('stat-criticos').textContent  = a.alertas_criticas;
+  document.getElementById('stat-sensores').textContent = s.sensores.filter(x=>x.activo).length;
+  document.getElementById('stat-alertas').textContent  = a.alertas_pendientes;
+  document.getElementById('stat-criticos').textContent = a.alertas_criticas;
   const avg = Math.round(s.sensores.reduce((acc,x)=>acc+x.datos.calidad,0)/s.sensores.length);
-  document.getElementById('stat-calidad').textContent   = avg + '%';
-  document.getElementById('stat-hora').textContent      = new Date().toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'});
-  const loraAvg = Math.round(s.sensores.reduce((acc,x)=>acc+x.datos.señal_lora,0)/s.sensores.length);
-  document.getElementById('stat-lora').textContent      = loraAvg + '%';
-  document.getElementById('alert-badge').textContent    = a.alertas_pendientes;
+  document.getElementById('stat-calidad').textContent  = avg + '%';
+  const pending = a.alertas_pendientes;
+  document.getElementById('alert-badge').textContent   = pending + ' NEW';
 }
 
-function getTrendIcon(val, min, max) {
-  if (val < min) return '<span class="material-symbols-outlined text-sm text-red-500">trending_down</span><span class="text-xs text-red-500">Bajo</span>';
-  if (val > max) return '<span class="material-symbols-outlined text-sm text-red-500">trending_up</span><span class="text-xs text-red-500">Alto</span>';
-  return '<span class="material-symbols-outlined text-sm text-green-600">trending_flat</span><span class="text-xs text-green-600">Normal</span>';
+function getTrend(val, min, max) {
+  if (val < min) return `<div class="flex items-center text-red-600"><span class="material-symbols-outlined text-sm">trending_down</span><span class="text-xs">Low</span></div>`;
+  if (val > max) return `<div class="flex items-center text-red-600"><span class="material-symbols-outlined text-sm">trending_up</span><span class="text-xs">High</span></div>`;
+  return `<div class="flex items-center text-green-600"><span class="material-symbols-outlined text-sm">trending_flat</span><span class="text-xs">Stable</span></div>`;
 }
 
 function renderSensores(data) {
@@ -302,80 +244,80 @@ function renderSensores(data) {
     const d = s.datos;
     const isCrit  = d.estado === 'critico';
     const isAlert = d.estado === 'alerta';
-    const borderClass = isCrit  ? 'border-2 border-error critical-pulse'
-                      : isAlert ? 'border border-[#f57c00]'
-                      : 'border border-surface-container';
-    const badgeClass  = isCrit  ? 'bg-red-100 text-red-800'
-                      : isAlert ? 'bg-orange-100 text-orange-800'
-                      : 'bg-green-100 text-green-800';
-    const badgeText   = isCrit ? 'CRÍTICO' : isAlert ? 'ALERTA' : 'NORMAL';
-    const phColor     = (d.ph < 6.5 || d.ph > 8.5)  ? 'text-error' : 'text-primary';
-    const turbColor   = d.turbidez > 50               ? 'text-error' : 'text-primary';
-    const tipoIcon    = {rio:'≈',laguna:'◉',reservorio:'⬡',paramo:'△'}[s.tipo]||'·';
+    const borderClass = isCrit ? 'border-2 border-error critical-pulse' : 'border border-surface-container';
+    const badgeClass  = isCrit ? 'bg-red-100 text-red-800' : isAlert ? 'bg-orange-100 text-orange-800' : 'bg-green-100 text-green-800';
+    const badgeText   = isCrit ? 'CRITICAL' : isAlert ? 'ALERT' : 'NORMAL';
+    const phColor     = (d.ph < 6.5 || d.ph > 8.5) ? 'text-error' : 'text-primary';
+    const turbColor   = d.turbidez > 50 ? 'text-error' : 'text-primary';
 
     const card = document.createElement('div');
     card.id = `card-${s.id}`;
-    card.className = `bg-white rounded-xl shadow-sm ${borderClass} overflow-hidden cursor-pointer hover:shadow-md transition-shadow`;
+    card.className = `bg-white rounded-xl shadow-sm ${borderClass} overflow-hidden`;
     card.innerHTML = `
-      <div class="p-md bg-surface-container-low flex justify-between items-start border-b border-surface-container">
+      <div class="p-md bg-surface-container-low flex justify-between items-center border-b border-surface-container">
         <div>
-          <p class="font-label-md text-label-md text-on-surface-variant">${s.id} · ${tipoIcon} ${s.tipo.toUpperCase()} · LoRa ${d.señal_lora}%</p>
-          <h4 class="font-title-lg text-title-lg text-on-surface leading-tight">${s.nombre}</h4>
-          <p class="font-label-md text-label-md text-on-surface-variant">📍 ${s.ubicacion}</p>
+          <h4 class="font-title-lg text-title-lg text-on-surface">${s.nombre}</h4>
+          <p class="font-label-md text-label-md text-on-surface-variant">${s.id} · ${s.tipo.toUpperCase()} · LoRa ${d.señal_lora}%</p>
         </div>
-        <span class="px-md py-xs rounded-full ${badgeClass} font-label-bold text-label-bold whitespace-nowrap">${badgeText} · ${d.calidad}%</span>
+        <span class="px-md py-xs rounded-full ${badgeClass} font-label-bold">${badgeText} · ${d.calidad}%</span>
       </div>
       <div class="p-md grid grid-cols-2 gap-md">
         <div class="bg-background p-sm rounded-lg">
-          <p class="font-label-bold text-label-bold text-on-surface-variant mb-xs">PH</p>
-          <p class="font-headline-md text-headline-md ${phColor}">${d.ph}</p>
-          <div class="flex items-center gap-xs">${getTrendIcon(d.ph,6.5,8.5)}</div>
+          <p class="font-label-bold text-on-surface-variant mb-xs">PH LEVEL</p>
+          <p class="font-headline-md ${phColor}">${d.ph}</p>
+          ${getTrend(d.ph, 6.5, 8.5)}
         </div>
         <div class="bg-background p-sm rounded-lg">
-          <p class="font-label-bold text-label-bold text-on-surface-variant mb-xs">TEMP (°C)</p>
-          <p class="font-headline-md text-headline-md text-primary">${d.temperatura}</p>
-          <div class="flex items-center gap-xs">${getTrendIcon(d.temperatura,10,22)}</div>
+          <p class="font-label-bold text-on-surface-variant mb-xs">TEMP (°C)</p>
+          <p class="font-headline-md text-primary">${d.temperatura}</p>
+          ${getTrend(d.temperatura, 10, 22)}
         </div>
         <div class="bg-background p-sm rounded-lg">
-          <p class="font-label-bold text-label-bold text-on-surface-variant mb-xs">TURBIDEZ</p>
-          <p class="font-headline-md text-headline-md ${turbColor}">${d.turbidez} <span class="text-xs font-normal text-on-surface-variant">NTU</span></p>
-          <div class="flex items-center gap-xs">${getTrendIcon(d.turbidez,0,25)}</div>
+          <p class="font-label-bold text-on-surface-variant mb-xs">TURBIDITY</p>
+          <p class="font-headline-md ${turbColor}">${d.turbidez} <span class="text-xs font-normal text-on-surface-variant">NTU</span></p>
+          ${getTrend(d.turbidez, 0, 25)}
         </div>
         <div class="bg-background p-sm rounded-lg">
-          <p class="font-label-bold text-label-bold text-on-surface-variant mb-xs">O₂ DISUELTO</p>
-          <p class="font-headline-md text-headline-md text-primary">${d.oxigeno_disuelto} <span class="text-xs font-normal text-on-surface-variant">mg/L</span></p>
-          <div class="flex items-center gap-xs">${getTrendIcon(d.oxigeno_disuelto,5,12)}</div>
+          <p class="font-label-bold text-on-surface-variant mb-xs">D. OXYGEN</p>
+          <p class="font-headline-md text-primary">${d.oxigeno_disuelto} <span class="text-xs font-normal text-on-surface-variant">mg/L</span></p>
+          ${getTrend(d.oxigeno_disuelto, 5, 12)}
         </div>
       </div>`;
     grid.appendChild(card);
   });
 }
 
-function renderAlertasMini(data) {
-  const list = document.getElementById('alerts-mini');
+function renderAlertas(data) {
+  const list = document.getElementById('alerts-list');
   list.innerHTML = '';
   const activas = data.alertas.filter(a => !a.atendida);
   if (!activas.length) {
-    list.innerHTML = '<div class="flex items-center gap-xs text-green-600 font-label-md p-sm"><span class="material-symbols-outlined text-sm" style="font-variation-settings:\'FILL\' 1;">check_circle</span>Sin alertas activas</div>';
-    document.getElementById('alert-summary').querySelector('.bg-error-container\\/10').className = 'p-md bg-green-50 border-b border-green-100 flex items-center justify-between';
+    list.innerHTML = '<div class="flex flex-col items-center gap-sm p-xl text-green-600"><span class="material-symbols-outlined text-4xl" style="font-variation-settings:\'FILL\' 1;">check_circle</span><p class="font-label-bold">No active alerts</p></div>';
+    document.getElementById('alert-header').className = 'p-md bg-green-50 border-b border-green-100 flex items-center justify-between';
     return;
   }
-  activas.forEach(a => {
+  data.alertas.forEach(a => {
     const isCrit = a.tipo === 'critico';
     const item = document.createElement('div');
-    item.className = `border-l-4 ${isCrit?'border-error bg-error-container/5':'border-[#f57c00] bg-orange-50/50'} pl-sm py-xs rounded-r`;
+    item.className = `border-l-4 ${isCrit ? 'border-error pl-md py-xs bg-error-container/5' : 'border-secondary pl-md py-xs bg-secondary-container/5'} rounded-r-lg`;
     item.innerHTML = `
-      <div class="flex justify-between items-start">
-        <p class="font-label-bold text-label-bold ${isCrit?'text-error':'text-[#f57c00]'}">${isCrit?'⛔':'⚠'} ${a.sensor_id}</p>
-        <span class="font-label-md text-label-md text-on-surface-variant">${calcularTiempo(a.timestamp)}</span>
+      <div class="flex justify-between items-start mb-xs">
+        <p class="font-label-bold ${isCrit ? 'text-error' : 'text-secondary'}">${isCrit ? 'CRITICAL' : 'ALERT'}: ${a.parametro.replace(/_/g,' ').toUpperCase()}</p>
+        <span class="font-label-md text-on-surface-variant">${calcularTiempo(a.timestamp)}</span>
       </div>
-      <p class="font-label-md text-label-md text-on-surface-variant">${a.parametro.replace(/_/g,' ')}: ${a.valor} (lím: ${a.limite})</p>`;
+      <p class="font-body-md font-semibold text-on-surface">${a.sensor_nombre}</p>
+      <p class="font-label-md text-on-surface-variant mt-xs">${a.mensaje}</p>
+      <p class="font-label-md mt-xs ${isCrit ? 'text-error' : 'text-secondary'}">Value: ${a.valor} · Limit: ${a.limite}</p>
+      ${!a.atendida ? `<div class="flex gap-md mt-md">
+        <button class="px-md py-xs ${isCrit ? 'bg-error' : 'bg-secondary'} text-white rounded text-xs font-label-bold">${isCrit ? 'ACKNOWLEDGE' : 'MONITOR'}</button>
+        <button class="text-on-surface-variant text-xs font-label-bold hover:underline">DETAILS</button>
+      </div>` : '<p class="font-label-md text-on-surface-variant mt-xs">✓ Attended</p>'}`;
     list.appendChild(item);
   });
 }
 
 function actualizarGrafico() {
-  const id    = document.getElementById('chart-sensor').value;
+  const id = document.getElementById('chart-sensor').value;
   const datos = historialData[id];
   if (!datos) return;
   const ctx = document.getElementById('chart-calidad').getContext('2d');
@@ -385,17 +327,14 @@ function actualizarGrafico() {
     data: {
       labels: datos.map(d=>d.hora),
       datasets: [
-        { label:'Calidad (%)', data:datos.map(d=>d.calidad), borderColor:'#006972', backgroundColor:'rgba(0,105,114,0.08)', borderWidth:2, pointRadius:0, tension:0.4, fill:true, yAxisID:'y' },
-        { label:'pH', data:datos.map(d=>d.ph), borderColor:'#006685', backgroundColor:'transparent', borderWidth:1.5, pointRadius:0, tension:0.4, borderDash:[4,3], yAxisID:'y2' }
+        {label:'Quality (%)',data:datos.map(d=>d.calidad),borderColor:'#006972',backgroundColor:'rgba(0,105,114,0.08)',borderWidth:2,pointRadius:0,tension:0.4,fill:true,yAxisID:'y'},
+        {label:'pH',data:datos.map(d=>d.ph),borderColor:'#006685',backgroundColor:'transparent',borderWidth:1.5,pointRadius:0,tension:0.4,borderDash:[4,3],yAxisID:'y2'}
       ]
     },
-    options: {
+    options:{
       responsive:true,
       interaction:{intersect:false,mode:'index'},
-      plugins:{
-        legend:{labels:{color:'#3e494a',font:{family:'Inter',size:11},boxWidth:12}},
-        tooltip:{backgroundColor:'#fff',borderColor:'#bec8ca',borderWidth:1,titleColor:'#191c1d',bodyColor:'#3e494a',titleFont:{family:'Inter',size:11},bodyFont:{family:'Inter',size:11}}
-      },
+      plugins:{legend:{labels:{color:'#3e494a',font:{family:'Inter',size:11},boxWidth:12}},tooltip:{backgroundColor:'#fff',borderColor:'#bec8ca',borderWidth:1,titleColor:'#191c1d',bodyColor:'#3e494a',titleFont:{family:'Inter',size:11},bodyFont:{family:'Inter',size:11}}},
       scales:{
         x:{ticks:{color:'#6f797a',font:{family:'Inter',size:10},maxRotation:0,maxTicksLimit:8},grid:{color:'rgba(0,0,0,0.04)'}},
         y:{min:0,max:100,ticks:{color:'#6f797a',font:{family:'Inter',size:10}},grid:{color:'rgba(0,0,0,0.04)'}},
@@ -407,10 +346,10 @@ function actualizarGrafico() {
 
 function calcularTiempo(ts) {
   const d = Math.floor((Date.now()-new Date(ts))/1000);
-  if(d<60) return `hace ${d}s`;
-  if(d<3600) return `hace ${Math.floor(d/60)}min`;
-  if(d<86400) return `hace ${Math.floor(d/3600)}h`;
-  return `hace ${Math.floor(d/86400)}d`;
+  if(d<60) return `${d}s ago`;
+  if(d<3600) return `${Math.floor(d/60)}m ago`;
+  if(d<86400) return `${Math.floor(d/3600)}h ago`;
+  return `${Math.floor(d/86400)}d ago`;
 }
 </script>
 </body>
