@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Alertas — AquaSense AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Public+Sans:wght@600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+tailwind.config={darkMode:"class",theme:{extend:{"colors":{"secondary":"#006685","primary":"#00535b","surface-container-highest":"#e1e3e4","on-primary":"#ffffff","secondary-container":"#79d4fe","on-background":"#191c1d","on-primary-fixed-variant":"#004f56","on-tertiary-fixed":"#00201e","surface-container-low":"#f3f4f5","on-primary-container":"#9becf7","tertiary-fixed-dim":"#90d3cb","tertiary":"#01544f","on-secondary":"#ffffff","secondary-fixed-dim":"#76d2fb","error-container":"#ffdad6","primary-container":"#006d77","inverse-primary":"#82d3de","on-secondary-fixed-variant":"#004d65","surface-tint":"#006972","surface-container-high":"#e7e8e9","surface-container-lowest":"#ffffff","tertiary-container":"#286d67","background":"#f8f9fa","surface-variant":"#e1e3e4","on-surface":"#191c1d","outline":"#6f797a","on-error":"#ffffff","on-error-container":"#93000a","on-tertiary-fixed-variant":"#00504b","on-tertiary-container":"#a9ece4","inverse-on-surface":"#f0f1f2","surface-dim":"#d9dadb","surface-bright":"#f8f9fa","surface":"#f8f9fa","surface-container":"#edeeef","inverse-surface":"#2e3132","outline-variant":"#bec8ca","primary-fixed-dim":"#82d3de","on-secondary-fixed":"#001f2a","primary-fixed":"#9ff0fb","on-tertiary":"#ffffff","tertiary-fixed":"#acefe7","on-secondary-container":"#005b77","on-primary-fixed":"#001f23","on-surface-variant":"#3e494a","secondary-fixed":"#bfe9ff","error":"#ba1a1a"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"max_width":"1440px","lg":"24px","xl":"32px","xs":"4px","md":"16px","margin":"32px","gutter":"24px","base":"4px","sm":"8px"},"fontFamily":{"body-md":["Inter"],"headline-lg":["Public Sans"],"label-md":["Inter"],"title-lg":["Inter"],"headline-lg-mobile":["Public Sans"],"headline-md":["Public Sans"],"display-lg":["Public Sans"],"body-lg":["Inter"],"label-bold":["Inter"]},"fontSize":{"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"headline-lg":["32px",{"lineHeight":"40px","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","fontWeight":"500"}],"title-lg":["18px",{"lineHeight":"24px","fontWeight":"600"}],"headline-lg-mobile":["24px",{"lineHeight":"32px","fontWeight":"600"}],"headline-md":["24px",{"lineHeight":"32px","fontWeight":"600"}],"display-lg":["48px",{"lineHeight":"56px","letterSpacing":"-0.02em","fontWeight":"700"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],"label-bold":["12px",{"lineHeight":"16px","letterSpacing":"0.05em","fontWeight":"700"}]}}}}
+</script>
+<style>
+.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}
+body{background-color:#f8f9fa;color:#191c1d;font-family:'Inter',sans-serif;}
+#sidebar{transition:width 0.2s ease;}
+.custom-scroll::-webkit-scrollbar{width:4px}
+.custom-scroll::-webkit-scrollbar-thumb{background:#bec8ca;border-radius:4px}
+</style>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+
+<!-- SIDEBAR -->
+<aside id="sidebar" class="bg-surface-container-low h-screen w-64 fixed left-0 top-0 shadow-sm flex flex-col py-lg z-50 overflow-hidden" style="transition:width 0.2s ease">
+
+  <!-- Logo completo -->
+  <div id="nav-logo-full" class="px-lg mb-xl flex items-center gap-md">
+    <svg width="32" height="32" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
+      <defs><linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#006D77"/><stop offset="100%" style="stop-color:#00535b"/></linearGradient></defs>
+      <path d="M100 20 C60 80 40 110 40 140 A60 60 0 0 0 160 140 C160 110 140 80 100 20 Z" fill="url(#lg1)"/>
+      <path d="M70 140 Q100 120 130 140 T190 140" fill="none" stroke="white" stroke-width="8" stroke-linecap="round" opacity="0.6"/>
+      <circle cx="100" cy="140" r="15" fill="white" opacity="0.3"/>
+    </svg>
+    <div>
+      <h1 class="font-headline-md text-headline-md font-bold text-primary" style="font-size:16px">AquaSense AI</h1>
+      <p class="font-body-md text-body-md text-on-surface-variant" style="font-size:11px">Sistema de Monitoreo</p>
+    </div>
+  </div>
+
+  <!-- Logo mini (colapsado) -->
+  <div id="nav-logo-mini" class="px-md mb-xl items-center justify-center hidden">
+    <svg width="32" height="32" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="lg2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#006D77"/><stop offset="100%" style="stop-color:#00535b"/></linearGradient></defs>
+      <path d="M100 20 C60 80 40 110 40 140 A60 60 0 0 0 160 140 C160 110 140 80 100 20 Z" fill="url(#lg2)"/>
+      <path d="M70 140 Q100 120 130 140 T190 140" fill="none" stroke="white" stroke-width="8" stroke-linecap="round" opacity="0.6"/>
+      <circle cx="100" cy="140" r="15" fill="white" opacity="0.3"/>
+    </svg>
+  </div>
+
+  <nav class="flex-1 space-y-xs px-sm">
+    <a href="index.html" class="flex items-center gap-md px-sm py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg">
+      <span class="material-symbols-outlined" style="flex-shrink:0">dashboard</span><span class="nav-label font-label-bold text-label-bold whitespace-nowrap">Panel Principal</span>
+    </a>
+    <a href="mapa.html" class="flex items-center gap-md px-sm py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg">
+      <span class="material-symbols-outlined" style="flex-shrink:0">map</span><span class="nav-label font-label-bold text-label-bold whitespace-nowrap">Mapa de Estaciones</span>
+    </a>
+    <a href="alertas.html" class="flex items-center gap-md px-sm py-sm text-primary font-bold border-r-4 border-primary bg-surface-container-high rounded-lg">
+      <span class="material-symbols-outlined" style="flex-shrink:0">notifications</span><span class="nav-label font-label-bold text-label-bold whitespace-nowrap">Alertas</span>
+    </a>
+    <a href="#" class="flex items-center gap-md px-sm py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg">
+      <span class="material-symbols-outlined" style="flex-shrink:0">analytics</span><span class="nav-label font-label-bold text-label-bold whitespace-nowrap">Analítica</span>
+    </a>
+    <a href="#" class="flex items-center gap-md px-sm py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg">
+      <span class="material-symbols-outlined" style="flex-shrink:0">settings</span><span class="nav-label font-label-bold text-label-bold whitespace-nowrap">Configuración</span>
+    </a>
+  </nav>
+
+  <!-- Botón colapsar -->
+  <div class="px-sm pt-md border-t border-outline-variant mt-md">
+    <button id="nav-toggle" class="flex items-center gap-md px-sm py-sm w-full text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg">
+      <span class="material-symbols-outlined" style="flex-shrink:0">chevron_left</span>
+      <span class="nav-label font-label-bold text-label-bold whitespace-nowrap">Colapsar</span>
+    </button>
+  </div>
+</aside>
+
+<!-- HEADER -->
+<header id="main-header" class="bg-surface shadow-sm flex justify-between items-center px-margin h-16 ml-64 max-w-[calc(100%-256px)] sticky top-0 z-40 border-b border-outline-variant" style="transition:margin-left 0.2s ease,max-width 0.2s ease">
+  <div class="flex items-center gap-md">
+    <span class="font-title-lg text-title-lg font-semibold text-on-surface">Estado: </span>
+    <div class="flex items-center gap-xs">
+      <div class="w-2 h-2 rounded-full bg-green-500"></div>
+      <span class="font-label-bold text-label-bold text-green-700">Sistema Activo</span>
+    </div>
+  </div>
+  <div class="flex items-center gap-lg">
+    <span id="reloj" class="font-label-bold text-label-bold text-on-surface-variant">--:--:--</span>
+    <button onclick="cargarAlertas()" class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container p-sm rounded-full transition-all">refresh</button>
+    <div class="h-8 w-px bg-outline-variant"></div>
+    <button onclick="exportarCSV()" class="bg-primary text-on-primary px-md py-sm rounded font-label-bold text-label-bold hover:opacity-90 transition-all flex items-center gap-xs">
+      <span class="material-symbols-outlined text-[18px]">download</span>
+      Exportar Reporte
+    </button>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main id="main-content" class="ml-64 p-margin" style="transition:margin-left 0.2s ease">
+
+  <!-- Cabecera + resumen -->
+  <div class="flex flex-col md:flex-row justify-between items-end mb-xl gap-lg">
+    <div>
+      <nav class="flex mb-sm items-center text-on-surface-variant gap-xs font-label-md text-label-md">
+        <span>Monitoreo</span>
+        <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+        <span class="text-primary font-bold">Alertas</span>
+      </nav>
+      <h2 class="font-headline-lg text-headline-lg text-on-surface">Historial de Alertas</h2>
+      <div class="flex gap-lg mt-md">
+        <span id="badge-activas" class="px-md py-xs bg-error-container text-on-error-container rounded-full font-label-bold text-[10px]">— ACTIVAS</span>
+        <span id="badge-atendidas" class="px-md py-xs bg-surface-container-highest text-on-surface-variant rounded-full font-label-bold text-[10px]">— ATENDIDAS</span>
+      </div>
+    </div>
+    <!-- Mini gráfico barras -->
+    <div class="bg-surface-container-lowest p-md rounded-xl shadow-sm border border-outline-variant flex items-center gap-xl">
+      <div>
+        <p class="font-label-bold text-label-bold text-on-surface-variant mb-xs">Distribución</p>
+        <div id="mini-chart" class="flex items-end gap-[3px] h-12"></div>
+      </div>
+      <div class="flex flex-col justify-between h-12 gap-xs">
+        <div class="flex items-center gap-sm">
+          <div class="w-2 h-2 rounded-full bg-error"></div>
+          <span id="pct-critico" class="font-label-md text-label-md text-on-surface-variant">Crítico: —</span>
+        </div>
+        <div class="flex items-center gap-sm">
+          <div class="w-2 h-2 rounded-full bg-amber-500"></div>
+          <span id="pct-alerta" class="font-label-md text-label-md text-on-surface-variant">Alerta: —</span>
+        </div>
+        <div class="flex items-center gap-sm">
+          <div class="w-2 h-2 rounded-full bg-primary"></div>
+          <span id="pct-normal" class="font-label-md text-label-md text-on-surface-variant">Normal: —</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filtros -->
+  <div class="bg-surface-container-lowest p-md rounded-lg shadow-sm mb-lg flex flex-wrap gap-md items-end border border-outline-variant">
+    <div class="flex flex-col gap-xs min-w-[140px]">
+      <label class="font-label-bold text-label-bold text-on-surface-variant">Severidad</label>
+      <select id="filtro-tipo" onchange="filtrar()" class="bg-surface border border-outline-variant rounded px-sm py-xs text-body-md">
+        <option value="todos">Todos</option>
+        <option value="critico">Crítico</option>
+        <option value="alerta">Alerta</option>
+      </select>
+    </div>
+    <div class="flex flex-col gap-xs min-w-[180px]">
+      <label class="font-label-bold text-label-bold text-on-surface-variant">Estación</label>
+      <select id="filtro-sensor" onchange="filtrar()" class="bg-surface border border-outline-variant rounded px-sm py-xs text-body-md">
+        <option value="todos">Todas las estaciones</option>
+      </select>
+    </div>
+    <div class="flex flex-col gap-xs min-w-[160px]">
+      <label class="font-label-bold text-label-bold text-on-surface-variant">Estado</label>
+      <select id="filtro-estado" onchange="filtrar()" class="bg-surface border border-outline-variant rounded px-sm py-xs text-body-md">
+        <option value="todos">Todos</option>
+        <option value="pendiente">Pendiente</option>
+        <option value="atendida">Atendida</option>
+      </select>
+    </div>
+    <div class="flex gap-sm ml-auto">
+      <button onclick="limpiarFiltros()" class="bg-surface-container-high text-on-surface px-lg py-xs rounded font-label-bold text-label-bold hover:bg-surface-variant transition-colors">Limpiar</button>
+    </div>
+  </div>
+
+  <!-- TABLA -->
+  <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse">
+        <thead class="bg-surface-container-low border-b border-outline-variant">
+          <tr>
+            <th class="px-lg py-md font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider">Timestamp</th>
+            <th class="px-lg py-md font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider">Estación</th>
+            <th class="px-lg py-md font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider">Parámetro</th>
+            <th class="px-lg py-md font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider">Valor vs Límite</th>
+            <th class="px-lg py-md font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider">Severidad</th>
+            <th class="px-lg py-md font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider">Estado</th>
+            <th class="px-lg py-md font-label-bold text-label-bold text-on-surface-variant uppercase tracking-wider text-right">Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-alertas" class="divide-y divide-outline-variant">
+          <tr><td colspan="7" class="px-lg py-xl text-center text-on-surface-variant">Cargando alertas...</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="px-lg py-md border-t border-outline-variant flex items-center justify-between bg-surface-container-low">
+      <span id="tabla-info" class="font-label-md text-label-md text-on-surface-variant">—</span>
+    </div>
+  </div>
+
+  <!-- Resumen operativo -->
+  <div class="mt-xl bg-surface-container shadow-sm p-lg rounded-xl border border-outline-variant">
+    <div class="flex items-center gap-md mb-md">
+      <span class="material-symbols-outlined text-primary" style="font-variation-settings:'FILL' 1;">info</span>
+      <h3 class="font-title-lg text-title-lg text-on-surface">Resumen Operativo</h3>
+    </div>
+    <p id="resumen-texto" class="font-body-md text-body-md text-on-surface-variant mb-lg">Cargando resumen...</p>
+    <div class="flex gap-sm">
+      <button class="flex-1 py-md bg-primary text-on-primary rounded font-label-bold text-label-bold hover:opacity-90 transition-all uppercase tracking-wide">
+        Programar Inspección
+      </button>
+      <button onclick="window.location.href='mapa.html'" class="px-lg py-md border border-primary text-primary rounded font-label-bold text-label-bold hover:bg-primary/5 transition-all">
+        Ver en Mapa
+      </button>
+    </div>
+  </div>
+
+</main>
+
+<script src="js/nav.js"></script>
+<script>
+const API_BASE = '/aquasense/api';
+let alertasData = [];
+
+document.addEventListener('DOMContentLoaded', () => {
+  actualizarReloj();
+  setInterval(actualizarReloj, 1000);
+  cargarAlertas();
+});
+
+function actualizarReloj() {
+  document.getElementById('reloj').textContent = new Date().toLocaleTimeString('es-EC');
+}
+
+async function cargarAlertas() {
+  try {
+    const res  = await fetch(`${API_BASE}/alertas.php`);
+    const data = await res.json();
+    alertasData = data.alertas;
+    poblarFiltroSensores();
+    actualizarResumen(data);
+    filtrar();
+  } catch(e) { console.error(e); }
+}
+
+function poblarFiltroSensores() {
+  const sel = document.getElementById('filtro-sensor');
+  const ids = [...new Set(alertasData.map(a => a.sensor_id))];
+  sel.innerHTML = '<option value="todos">Todas las estaciones</option>';
+  ids.forEach(id => {
+    const nombre = alertasData.find(a=>a.sensor_id===id)?.sensor_nombre || id;
+    sel.innerHTML += `<option value="${id}">${nombre}</option>`;
+  });
+}
+
+function actualizarResumen(data) {
+  const total    = data.alertas.length;
+  const activas  = data.alertas_pendientes;
+  const atend    = data.alertas.filter(a=>a.atendida).length;
+  const criticos = data.alertas.filter(a=>a.tipo==='critico').length;
+  const alertas  = data.alertas.filter(a=>a.tipo==='alerta').length;
+
+  document.getElementById('badge-activas').textContent  = `${activas} ACTIVAS`;
+  document.getElementById('badge-atendidas').textContent = `${atend} ATENDIDAS`;
+
+  // Mini chart
+  const chart = document.getElementById('mini-chart');
+  const tipos = ['critico','alerta','normal'];
+  const counts = tipos.map(t => data.alertas.filter(a=>a.tipo===t).length);
+  const max = Math.max(...counts, 1);
+  const colors = {'critico':'#ba1a1a','alerta':'#f59e0b','normal':'#00535b'};
+  chart.innerHTML = tipos.map((t,i) =>
+    `<div style="width:20px;background:${colors[t]};height:${Math.round((counts[i]/max)*48)+4}px;border-radius:3px 3px 0 0"></div>`
+  ).join('');
+
+  const pct = (n) => total ? Math.round(n/total*100) : 0;
+  document.getElementById('pct-critico').textContent = `Crítico: ${pct(criticos)}%`;
+  document.getElementById('pct-alerta').textContent  = `Alerta: ${pct(alertas)}%`;
+  document.getElementById('pct-normal').textContent  = `Normal: ${pct(total-criticos-alertas)}%`;
+
+  // Resumen operativo
+  const criticosPendientes = data.alertas.filter(a=>a.tipo==='critico'&&!a.atendida);
+  if (criticosPendientes.length) {
+    const nombres = [...new Set(criticosPendientes.map(a=>a.sensor_nombre))].join(', ');
+    document.getElementById('resumen-texto').textContent =
+      `Se han detectado ${criticosPendientes.length} alerta(s) crítica(s) pendiente(s) en: ${nombres}. Se recomienda inspección técnica inmediata.`;
+  } else {
+    document.getElementById('resumen-texto').textContent =
+      'No hay alertas críticas activas en este momento. El sistema opera dentro de los parámetros normales.';
+  }
+}
+
+function filtrar() {
+  const tipo   = document.getElementById('filtro-tipo').value;
+  const sensor = document.getElementById('filtro-sensor').value;
+  const estado = document.getElementById('filtro-estado').value;
+
+  let filtradas = alertasData;
+  if (tipo   !== 'todos') filtradas = filtradas.filter(a => a.tipo === tipo);
+  if (sensor !== 'todos') filtradas = filtradas.filter(a => a.sensor_id === sensor);
+  if (estado === 'pendiente') filtradas = filtradas.filter(a => !a.atendida);
+  if (estado === 'atendida')  filtradas = filtradas.filter(a =>  a.atendida);
+
+  renderTabla(filtradas);
+}
+
+function limpiarFiltros() {
+  document.getElementById('filtro-tipo').value   = 'todos';
+  document.getElementById('filtro-sensor').value = 'todos';
+  document.getElementById('filtro-estado').value = 'todos';
+  filtrar();
+}
+
+function renderTabla(alertas) {
+  const tbody = document.getElementById('tabla-alertas');
+  document.getElementById('tabla-info').textContent = `Mostrando ${alertas.length} de ${alertasData.length} alertas`;
+
+  if (!alertas.length) {
+    tbody.innerHTML = '<tr><td colspan="7" class="px-lg py-xl text-center text-on-surface-variant">Sin alertas para este filtro</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = alertas.map(a => {
+    const isCrit  = a.tipo === 'critico';
+    const isAlert = a.tipo === 'alerta';
+    const sevBadge = isCrit
+      ? '<span class="bg-red-100 text-red-800 px-sm py-xs rounded font-label-bold text-[10px] uppercase">CRÍTICO</span>'
+      : isAlert
+        ? '<span class="bg-amber-100 text-amber-800 px-sm py-xs rounded font-label-bold text-[10px] uppercase">ALERTA</span>'
+        : '<span class="bg-green-100 text-green-800 px-sm py-xs rounded font-label-bold text-[10px] uppercase">NORMAL</span>';
+    const valColor = isCrit ? 'text-error font-bold' : isAlert ? 'text-amber-600 font-bold' : 'text-green-600 font-bold';
+    const estadoHtml = a.atendida
+      ? `<div class="flex items-center gap-xs"><span class="material-symbols-outlined text-[16px] text-green-600">check_circle</span><span class="font-label-md text-label-md">Atendida</span></div>`
+      : isCrit
+        ? `<div class="flex items-center gap-xs"><span class="material-symbols-outlined text-[16px] text-error">error</span><span class="font-label-md text-label-md">Pendiente</span></div>`
+        : `<div class="flex items-center gap-xs"><span class="material-symbols-outlined text-[16px] text-amber-500">pace</span><span class="font-label-md text-label-md">En revisión</span></div>`;
+    const paramLabel = a.parametro.replace(/_/g,' ').replace(/\b\w/g,l=>l.toUpperCase());
+    const ts = new Date(a.timestamp).toLocaleString('es-EC',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+
+    return `<tr class="hover:bg-primary/5 transition-colors group">
+      <td class="px-lg py-md font-body-md text-body-md text-on-surface">${ts}</td>
+      <td class="px-lg py-md font-body-md text-body-md text-on-surface font-semibold">${a.sensor_nombre}</td>
+      <td class="px-lg py-md font-body-md text-body-md text-on-surface">${paramLabel}</td>
+      <td class="px-lg py-md">
+        <div class="flex flex-col">
+          <span class="font-body-md text-body-md ${valColor}">${a.valor}</span>
+          <span class="text-[10px] text-on-surface-variant">Límite: ${a.limite}</span>
+        </div>
+      </td>
+      <td class="px-lg py-md">${sevBadge}</td>
+      <td class="px-lg py-md">${estadoHtml}</td>
+      <td class="px-lg py-md text-right">
+        <div class="flex justify-end gap-sm opacity-0 group-hover:opacity-100 transition-opacity">
+          <button class="p-xs text-primary hover:bg-primary-container/10 rounded" title="Ver Detalles">
+            <span class="material-symbols-outlined">visibility</span>
+          </button>
+          <button class="p-xs text-secondary hover:bg-secondary-container/10 rounded" title="Asignar">
+            <span class="material-symbols-outlined">assignment_ind</span>
+          </button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function exportarCSV() {
+  const lines = ['ID,Sensor,Parámetro,Valor,Límite,Tipo,Timestamp,Atendida'];
+  alertasData.forEach(a => {
+    lines.push(`${a.id},"${a.sensor_nombre}","${a.parametro}",${a.valor},${a.limite},${a.tipo},"${a.timestamp}",${a.atendida}`);
+  });
+  const blob = new Blob([lines.join('\n')], {type:'text/csv'});
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = `aquasense_alertas_${new Date().toISOString().slice(0,10)}.csv`;
+  link.click();
+}
+</script>
+</body>
+</html>
