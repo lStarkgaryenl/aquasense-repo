@@ -35,8 +35,8 @@ body{background-color:#f8f9fa;color:#191c1d;}
 <body class="font-body-md text-on-surface">
 
 <!-- SIDEBAR -->
-<aside id="sidebar" class="h-screen w-64 fixed left-0 top-0 flex flex-col h-full p-md bg-surface-container-low shadow-sm z-50">
-  <div id="nav-logo-full" class="flex items-center gap-md mb-xl px-sm">
+<aside class="h-screen w-64 fixed left-0 top-0 flex flex-col p-md bg-surface-container-low shadow-sm z-50">
+  <div class="flex items-center gap-md mb-xl px-sm">
     <svg width="40" height="40" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
       <defs><linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#006D77"/><stop offset="100%" style="stop-color:#00535b"/></linearGradient></defs>
       <path d="M100 20 C60 80 40 110 40 140 A60 60 0 0 0 160 140 C160 110 140 80 100 20 Z" fill="url(#lg1)"/>
@@ -49,33 +49,37 @@ body{background-color:#f8f9fa;color:#191c1d;}
     </div>
   </div>
   <nav class="flex flex-col gap-xs grow">
-    <a class="flex items-center gap-md px-md py-sm bg-secondary-container text-on-secondary-container rounded-lg active:scale-95 duration-150 transition-colors" href="index.html">
-      <span class="material-symbols-outlined">dashboard</span><span class="font-body-md">Panel Principal</span>
+    <a class="flex items-center gap-md px-md py-sm bg-secondary-container text-on-secondary-container rounded-lg duration-150 transition-colors" href="index.html">
+      <span class="material-symbols-outlined">dashboard</span>
+      <span class="font-body-md">Panel Principal</span>
     </a>
     <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-95 duration-150 rounded-lg" href="mapa.html">
-      <span class="material-symbols-outlined">map</span><span class="font-body-md">Mapa de Estaciones</span>
+      <span class="material-symbols-outlined">map</span>
+      <span class="font-body-md">Mapa de Estaciones</span>
     </a>
     <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-95 duration-150 rounded-lg" href="alertas.html">
-      <span class="material-symbols-outlined">notifications</span><span class="font-body-md">Alertas</span>
+      <span class="material-symbols-outlined">notifications</span>
+      <span class="font-body-md">Alertas</span>
     </a>
     <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-95 duration-150 rounded-lg" href="#">
-      <span class="material-symbols-outlined">analytics</span><span class="font-body-md">Analítica</span>
+      <span class="material-symbols-outlined">analytics</span>
+      <span class="font-body-md">Analítica</span>
     </a>
   </nav>
   <div class="mt-auto border-t border-outline-variant pt-md">
-    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-95 duration-150 rounded-lg" href="#">
-      <span class="material-symbols-outlined">settings</span><span class="font-body-md">Configuración</span>
+    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+      <span class="material-symbols-outlined">settings</span>
+      <span class="font-body-md">Configuración</span>
     </a>
   </div>
 </aside>
 
 <!-- HEADER -->
-<header id="main-header" class="flex justify-between items-center w-full px-xl py-md ml-64 max-w-[calc(100%-256px)] top-0 sticky z-40 bg-surface border-b border-outline-variant">
+<header class="flex justify-between items-center w-full px-xl py-md ml-64 max-w-[calc(100%-256px)] top-0 sticky z-40 bg-surface border-b border-outline-variant">
   <h2 class="font-headline-md text-headline-md font-bold text-primary">Vista General del Sistema</h2>
   <div class="flex items-center gap-lg">
     <div class="flex items-center gap-md">
       <span id="reloj" class="font-label-bold text-label-bold text-on-surface-variant">--:--:--</span>
-      <button onclick="cargarDatos()" class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-all duration-200">refresh</button>
       <span class="material-symbols-outlined text-on-surface-variant">wifi_tethering</span>
     </div>
     <div class="h-8 w-px bg-outline-variant"></div>
@@ -88,6 +92,7 @@ body{background-color:#f8f9fa;color:#191c1d;}
         <span class="material-symbols-outlined text-white text-sm" style="font-variation-settings:'FILL' 1;">water_drop</span>
       </div>
     </div>
+    
   </div>
 </header>
 

@@ -33,46 +33,42 @@ body{background-color:#f8f9fa;color:#191c1d;}
 <body class="bg-surface text-on-surface font-body-md">
 
 <!-- SIDEBAR NAV -->
-<aside id="sidebar" class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low shadow-sm flex flex-col p-md z-50">
-  <div id="nav-logo-full" class="mb-xl px-md">
-    <div class="flex items-center gap-md">
-      <svg width="36" height="36" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#006D77"/><stop offset="100%" style="stop-color:#00535b"/></linearGradient></defs>
-        <path d="M100 20 C60 80 40 110 40 140 A60 60 0 0 0 160 140 C160 110 140 80 100 20 Z" fill="url(#lg1)"/>
-        <path d="M70 140 Q100 120 130 140 T190 140" fill="none" stroke="white" stroke-width="8" stroke-linecap="round" opacity="0.6"/>
-        <circle cx="100" cy="140" r="15" fill="white" opacity="0.3"/>
-      </svg>
-      <div>
-        <h1 class="font-headline-md text-headline-md font-semibold text-primary">AquaSense AI</h1>
-        <p class="font-body-md text-body-md text-on-surface-variant">Sistema de Monitoreo</p>
-      </div>
+<aside class="h-screen w-64 fixed left-0 top-0 flex flex-col p-md bg-surface-container-low shadow-sm z-50">
+  <div class="flex items-center gap-md mb-xl px-sm">
+    <svg width="40" height="40" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#006D77"/><stop offset="100%" style="stop-color:#00535b"/></linearGradient></defs>
+      <path d="M100 20 C60 80 40 110 40 140 A60 60 0 0 0 160 140 C160 110 140 80 100 20 Z" fill="url(#lg1)"/>
+      <path d="M70 140 Q100 120 130 140 T190 140" fill="none" stroke="white" stroke-width="8" stroke-linecap="round" opacity="0.6"/>
+      <circle cx="100" cy="140" r="15" fill="white" opacity="0.3"/>
+    </svg>
+    <div>
+      <h1 class="font-headline-md text-headline-md font-semibold text-primary">AquaSense AI</h1>
+      <p class="font-label-md text-label-md text-on-surface-variant">Sistema de Monitoreo</p>
     </div>
   </div>
-  <nav class="flex-1 space-y-sm">
-    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="index.html">
-      <span class="material-symbols-outlined">dashboard</span><span class="font-body-md">Panel Principal</span>
+  <nav class="flex flex-col gap-xs grow">
+    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-95 duration-150 rounded-lg" href="index.html">
+      <span class="material-symbols-outlined">dashboard</span>
+      <span class="font-body-md">Panel Principal</span>
     </a>
-    <a class="flex items-center gap-md px-md py-sm bg-secondary-container text-on-secondary-container rounded-lg" href="mapa.html">
-      <span class="material-symbols-outlined">map</span><span class="font-body-md">Mapa de Estaciones</span>
+    <a class="flex items-center gap-md px-md py-sm bg-secondary-container text-on-secondary-container rounded-lg duration-150 transition-colors" href="mapa.html">
+      <span class="material-symbols-outlined">map</span>
+      <span class="font-body-md">Mapa de Estaciones</span>
     </a>
-    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="alertas.html">
-      <span class="material-symbols-outlined">notifications</span><span class="font-body-md">Alertas</span>
+    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-95 duration-150 rounded-lg" href="alertas.html">
+      <span class="material-symbols-outlined">notifications</span>
+      <span class="font-body-md">Alertas</span>
     </a>
-    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
-      <span class="material-symbols-outlined">analytics</span><span class="font-body-md">Analítica</span>
-    </a>
-    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
-      <span class="material-symbols-outlined">settings</span><span class="font-body-md">Configuración</span>
+    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-95 duration-150 rounded-lg" href="#">
+      <span class="material-symbols-outlined">analytics</span>
+      <span class="font-body-md">Analítica</span>
     </a>
   </nav>
-  <div class="mt-auto px-md py-md flex items-center gap-md border-t border-outline-variant">
-    <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
-      <span class="material-symbols-outlined text-white text-sm" style="font-variation-settings:'FILL' 1;">water_drop</span>
-    </div>
-    <div>
-      <p class="font-label-bold text-label-bold">AquaSense AI</p>
-      <p class="text-[10px] text-on-surface-variant uppercase tracking-wider">ODS 6 · Ecuador</p>
-    </div>
+  <div class="mt-auto border-t border-outline-variant pt-md">
+    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+      <span class="material-symbols-outlined">settings</span>
+      <span class="font-body-md">Configuración</span>
+    </a>
   </div>
 </aside>
 
@@ -80,20 +76,26 @@ body{background-color:#f8f9fa;color:#191c1d;}
 <main id="main-content" class="ml-64 min-h-screen flex flex-col">
 
   <!-- HEADER -->
-  <header id="main-header" class="flex justify-between items-center w-full px-xl py-md bg-surface border-b border-outline-variant sticky top-0 z-40">
-    <div class="flex items-center gap-sm">
-      <span class="material-symbols-outlined text-primary">location_on</span>
-      <h2 class="font-title-lg text-title-lg text-primary">Mapa de Estaciones en Tiempo Real</h2>
-    </div>
-    <div class="flex items-center gap-lg">
+  <header class="flex justify-between items-center w-full px-xl py-md ml-64 max-w-[calc(100%-256px)] top-0 sticky z-40 bg-surface border-b border-outline-variant">
+  <h2 class="font-headline-md text-headline-md font-bold text-primary">Mapa de Estaciones en Tiempo Real</h2>
+  <div class="flex items-center gap-lg">
+    <div class="flex items-center gap-md">
       <span id="reloj" class="font-label-bold text-label-bold text-on-surface-variant">--:--:--</span>
-      <button onclick="cargarDatos()" class="material-symbols-outlined p-sm hover:bg-surface-container rounded-full transition-colors text-on-surface-variant">refresh</button>
-      <div class="flex items-center gap-sm bg-primary-container/10 px-md py-xs rounded-full border border-primary-container">
-        <div class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></div>
-        <span class="font-label-bold text-primary">SISTEMA ACTIVO</span>
+      <span class="material-symbols-outlined text-on-surface-variant">wifi_tethering</span>
+    </div>
+    <div class="h-8 w-px bg-outline-variant"></div>
+    <div class="flex items-center gap-md">
+      <div class="text-right">
+        <p class="font-label-bold text-label-bold text-on-surface">AquaSense AI</p>
+        <p class="font-label-md text-label-md text-on-surface-variant">ODS 6 · Ecuador</p>
+      </div>
+      <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+        <span class="material-symbols-outlined text-white text-sm" style="font-variation-settings:'FILL' 1;">water_drop</span>
       </div>
     </div>
-  </header>
+    
+  </div>
+</header>
 
   <!-- CONTENT: Mapa + Sidebar lista -->
   <div class="flex-1 flex overflow-hidden" style="height:calc(100vh - 65px)">
