@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Public+Sans:wght@600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.js"></script>
+<script id="tailwind-config">
+tailwind.config={darkMode:"class",theme:{extend:{"colors":{"on-error-container":"#93000a","error":"#ba1a1a","surface-dim":"#d9dadb","surface-container-high":"#e7e8e9","surface-variant":"#e1e3e4","on-primary-fixed":"#001f23","surface-container-lowest":"#ffffff","on-surface-variant":"#3e494a","on-surface":"#191c1d","on-primary":"#ffffff","surface-container-highest":"#e1e3e4","tertiary":"#01544f","inverse-surface":"#2e3132","tertiary-fixed":"#acefe7","surface":"#f8f9fa","on-secondary-fixed":"#001f2a","surface-container":"#edeeef","on-background":"#191c1d","surface-bright":"#f8f9fa","secondary-fixed-dim":"#76d2fb","on-error":"#ffffff","secondary-container":"#79d4fe","on-secondary":"#ffffff","background":"#f8f9fa","outline":"#6f797a","tertiary-container":"#286d67","primary-fixed-dim":"#82d3de","on-secondary-container":"#005b77","on-tertiary":"#ffffff","on-primary-fixed-variant":"#004f56","inverse-on-surface":"#f0f1f2","surface-tint":"#006972","secondary-fixed":"#bfe9ff","on-primary-container":"#9becf7","tertiary-fixed-dim":"#90d3cb","outline-variant":"#bec8ca","secondary":"#006685","on-tertiary-fixed":"#00201e","on-secondary-fixed-variant":"#004d65","error-container":"#ffdad6","primary":"#00535b","surface-container-low":"#f3f4f5","inverse-primary":"#82d3de","primary-fixed":"#9ff0fb","on-tertiary-fixed-variant":"#00504b","on-tertiary-container":"#a9ece4","primary-container":"#006d77"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"md":"16px","base":"4px","lg":"24px","xs":"4px","sm":"8px","margin":"32px","gutter":"24px","xl":"32px","max_width":"1440px"},"fontFamily":{"title-lg":["Inter"],"body-lg":["Inter"],"label-bold":["Inter"],"label-md":["Inter"],"headline-lg-mobile":["Public Sans"],"body-md":["Inter"],"display-lg":["Public Sans"],"headline-lg":["Public Sans"],"headline-md":["Public Sans"]},"fontSize":{"title-lg":["18px",{"lineHeight":"24px","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],"label-bold":["12px",{"lineHeight":"16px","letterSpacing":"0.05em","fontWeight":"700"}],"label-md":["12px",{"lineHeight":"16px","fontWeight":"500"}],"headline-lg-mobile":["24px",{"lineHeight":"32px","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"display-lg":["48px",{"lineHeight":"56px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-lg":["32px",{"lineHeight":"40px","fontWeight":"600"}],"headline-md":["24px",{"lineHeight":"32px","fontWeight":"600"}]}}}}
+</script>
+<style>
+.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}
+body{background-color:#f8f9fa;color:#191c1d;}
+#mapa{height:100%;width:100%;}
+.leaflet-popup-content-wrapper{border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,0.15);font-family:'Inter',sans-serif;}
+.leaflet-popup-content{margin:14px 18px;font-size:13px;line-height:1.6;}
+.popup-title{font-weight:700;font-size:15px;color:#00535b;margin-bottom:8px;}
+.popup-row{display:flex;justify-content:space-between;gap:20px;margin:3px 0;}
+.popup-label{color:#6f797a;font-size:12px;}
+.popup-val{font-weight:600;color:#191c1d;font-size:12px;}
+.popup-badge{display:inline-block;padding:3px 12px;border-radius:20px;font-size:11px;font-weight:700;margin-top:8px;letter-spacing:0.05em;}
+.badge-normal{background:#dcfce7;color:#166534;}
+.badge-alerta{background:#ffedd5;color:#9a3412;}
+.badge-critico{background:#fee2e2;color:#991b1b;}
+.station-card.active{border-color:#00535b;background:#f0fafa;}
+.custom-scroll::-webkit-scrollbar{width:4px}
+.custom-scroll::-webkit-scrollbar-thumb{background:#bec8ca;border-radius:4px}
+</style>
+</head>
+<body class="bg-surface text-on-surface font-body-md">
+
+<!-- SIDEBAR NAV -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low shadow-sm flex flex-col p-md z-50">
+  <div class="mb-xl px-md">
+    <div class="flex items-center gap-md">
+      <svg width="36" height="36" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#006D77"/><stop offset="100%" style="stop-color:#00535b"/></linearGradient></defs>
+        <path d="M100 20 C60 80 40 110 40 140 A60 60 0 0 0 160 140 C160 110 140 80 100 20 Z" fill="url(#lg1)"/>
+        <path d="M70 140 Q100 120 130 140 T190 140" fill="none" stroke="white" stroke-width="8" stroke-linecap="round" opacity="0.6"/>
+        <circle cx="100" cy="140" r="15" fill="white" opacity="0.3"/>
+      </svg>
+      <div>
+        <h1 class="font-headline-md text-headline-md font-semibold text-primary">AquaSense AI</h1>
+        <p class="font-body-md text-body-md text-on-surface-variant">Sistema de Monitoreo</p>
+      </div>
+    </div>
+  </div>
+  <nav class="flex-1 space-y-sm">
+    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="index.html">
+      <span class="material-symbols-outlined">dashboard</span><span class="font-body-md">Panel Principal</span>
+    </a>
+    <a class="flex items-center gap-md px-md py-sm bg-secondary-container text-on-secondary-container rounded-lg" href="#">
+      <span class="material-symbols-outlined">map</span><span class="font-body-md">Mapa de Estaciones</span>
+    </a>
+    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+      <span class="material-symbols-outlined">notifications</span><span class="font-body-md">Alertas</span>
+    </a>
+    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+      <span class="material-symbols-outlined">analytics</span><span class="font-body-md">Analítica</span>
+    </a>
+    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+      <span class="material-symbols-outlined">settings</span><span class="font-body-md">Configuración</span>
+    </a>
+  </nav>
+  <div class="mt-auto px-md py-md flex items-center gap-md border-t border-outline-variant">
+    <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+      <span class="material-symbols-outlined text-white text-sm" style="font-variation-settings:'FILL' 1;">water_drop</span>
+    </div>
+    <div>
+      <p class="font-label-bold text-label-bold">AquaSense AI</p>
+      <p class="text-[10px] text-on-surface-variant uppercase tracking-wider">ODS 6 · Ecuador</p>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="ml-64 min-h-screen flex flex-col">
+
+  <!-- HEADER -->
+  <header class="flex justify-between items-center w-full px-xl py-md bg-surface border-b border-outline-variant sticky top-0 z-40">
+    <div class="flex items-center gap-sm">
+      <span class="material-symbols-outlined text-primary">location_on</span>
+      <h2 class="font-title-lg text-title-lg text-primary">Mapa de Estaciones en Tiempo Real</h2>
+    </div>
+    <div class="flex items-center gap-lg">
+      <span id="reloj" class="font-label-bold text-label-bold text-on-surface-variant">--:--:--</span>
+      <button onclick="cargarDatos()" class="material-symbols-outlined p-sm hover:bg-surface-container rounded-full transition-colors text-on-surface-variant">refresh</button>
+      <div class="flex items-center gap-sm bg-primary-container/10 px-md py-xs rounded-full border border-primary-container">
+        <div class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></div>
+        <span class="font-label-bold text-primary">SISTEMA ACTIVO</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENT: Mapa + Sidebar lista -->
+  <div class="flex-1 flex overflow-hidden" style="height:calc(100vh - 65px)">
+
+    <!-- MAPA LEAFLET -->
+    <section class="flex-1 relative">
+      <div id="mapa" style="height:100%;width:100%;"></div>
+    </section>
+
+    <!-- SIDEBAR LISTA -->
+    <aside class="w-96 bg-surface border-l border-outline-variant flex flex-col shadow-2xl z-40">
+
+      <!-- Filtro -->
+      <div class="p-lg border-b border-outline-variant bg-surface-container-low flex-shrink-0">
+        <h3 class="font-headline-md text-headline-md text-on-surface mb-md">Listado de Estaciones</h3>
+        <div class="flex flex-col gap-sm">
+          <label class="font-label-bold text-xs text-on-surface-variant">FILTRAR POR ESTADO</label>
+          <select id="filtro-estado" onchange="filtrarEstaciones()" class="w-full bg-surface border border-outline-variant rounded-lg px-md py-sm font-body-md text-on-surface focus:border-primary transition-all">
+            <option value="todos">Todos los estados</option>
+            <option value="normal">Normal</option>
+            <option value="alerta">Alerta</option>
+            <option value="critico">Crítico</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Lista de estaciones -->
+      <div id="stations-list" class="flex-1 overflow-y-auto p-md space-y-md bg-surface-bright custom-scroll">
+        <div class="text-center p-xl text-on-surface-variant">Cargando estaciones...</div>
+      </div>
+
+      <!-- Botón exportar -->
+      <div class="p-lg bg-surface border-t border-outline-variant flex-shrink-0">
+        <button onclick="exportarInforme()" class="w-full py-md bg-primary text-on-primary rounded-xl font-title-lg flex items-center justify-center gap-md hover:brightness-110 active:scale-[0.98] transition-all shadow-lg">
+          <span class="material-symbols-outlined">download</span>
+          Exportar Informe de Red
+        </button>
+      </div>
+
+    </aside>
+  </div>
+</main>
+
+<!-- FAB -->
+<button class="fixed bottom-xl right-[416px] w-14 h-14 bg-primary-container text-on-primary-container rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform active:scale-95 z-50" title="Agregar nueva estación">
+  <span class="material-symbols-outlined text-[32px]">add_location_alt</span>
+</button>
+
+<script>
+const API_BASE = '/aquasense/api';
+let mapa = null;
+let marcadores = {};
+let sensoresData = [];
+
+document.addEventListener('DOMContentLoaded', () => {
+  actualizarReloj();
+  setInterval(actualizarReloj, 1000);
+  inicializarMapa();
+  cargarDatos();
+  setInterval(cargarDatos, 15000);
+});
+
+function actualizarReloj() {
+  document.getElementById('reloj').textContent = new Date().toLocaleTimeString('es-EC');
+}
+
+function inicializarMapa() {
+  mapa = L.map('mapa', { zoomControl: true, scrollWheelZoom: true });
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors',
+    maxZoom: 18
+  }).addTo(mapa);
+  mapa.setView([-1.5, -78.2], 7);
+}
+
+function crearIcono(estado) {
+  const cfg = {
+    critico: { color:'#dc2626', ring:'#fee2e2', size:28 },
+    alerta:  { color:'#f97316', ring:'#ffedd5', size:24 },
+    normal:  { color:'#16a34a', ring:'#dcfce7', size:22 },
+  }[estado] || { color:'#16a34a', ring:'#dcfce7', size:22 };
+
+  return L.divIcon({
+    className: '',
+    html: `<div style="width:${cfg.size}px;height:${cfg.size}px;border-radius:50%;background:${cfg.color};border:3px solid white;box-shadow:0 0 0 3px ${cfg.ring},0 3px 10px rgba(0,0,0,0.3);"></div>`,
+    iconSize: [cfg.size, cfg.size],
+    iconAnchor: [cfg.size/2, cfg.size/2],
+    popupAnchor: [0, -cfg.size/2 - 4]
+  });
+}
+
+function buildPopup(s) {
+  const d = s.datos;
+  const badgeClass = d.estado === 'critico' ? 'badge-critico' : d.estado === 'alerta' ? 'badge-alerta' : 'badge-normal';
+  const estadoText = d.estado === 'critico' ? 'CRÍTICO' : d.estado === 'alerta' ? 'ALERTA' : 'NORMAL';
+  const tipoIcon = {rio:'≈', laguna:'◉', reservorio:'⬡', paramo:'△'}[s.tipo] || '·';
+  return `
+    <div class="popup-title">${s.nombre}</div>
+    <div class="popup-row"><span class="popup-label">ID / Tipo</span><span class="popup-val">${s.id} · ${tipoIcon} ${s.tipo}</span></div>
+    <div class="popup-row"><span class="popup-label">Ubicación</span><span class="popup-val">${s.ubicacion}</span></div>
+    <div class="popup-row"><span class="popup-label">pH</span><span class="popup-val">${d.ph} u</span></div>
+    <div class="popup-row"><span class="popup-label">Temperatura</span><span class="popup-val">${d.temperatura} °C</span></div>
+    <div class="popup-row"><span class="popup-label">Turbidez</span><span class="popup-val">${d.turbidez} NTU</span></div>
+    <div class="popup-row"><span class="popup-label">O₂ Disuelto</span><span class="popup-val">${d.oxigeno_disuelto} mg/L</span></div>
+    <div class="popup-row"><span class="popup-label">Índice calidad</span><span class="popup-val">${d.calidad}%</span></div>
+    <div class="popup-row"><span class="popup-label">Señal LoRa</span><span class="popup-val">${d.señal_lora}%</span></div>
+    <div class="popup-row"><span class="popup-label">Última lectura</span><span class="popup-val">${d.ultima_lectura}</span></div>
+    <span class="popup-badge ${badgeClass}">${estadoText}</span>`;
+}
+
+function actualizarMarcadores(sensores) {
+  sensores.forEach(s => {
+    if (marcadores[s.id]) {
+      marcadores[s.id].setIcon(crearIcono(s.datos.estado));
+      marcadores[s.id].setPopupContent(buildPopup(s));
+    } else {
+      const m = L.marker([s.lat, s.lng], { icon: crearIcono(s.datos.estado) })
+        .bindPopup(buildPopup(s), { maxWidth: 260 })
+        .addTo(mapa);
+      marcadores[s.id] = m;
+    }
+  });
+}
+
+async function cargarDatos() {
+  try {
+    const res = await fetch(`${API_BASE}/sensores.php`);
+    const data = await res.json();
+    sensoresData = data.sensores;
+    actualizarMarcadores(sensoresData);
+    renderLista(sensoresData);
+  } catch(e) { console.error(e); }
+}
+
+function filtrarEstaciones() {
+  const filtro = document.getElementById('filtro-estado').value;
+  const filtrados = filtro === 'todos' ? sensoresData : sensoresData.filter(s => s.datos.estado === filtro);
+  renderLista(filtrados);
+}
+
+function renderLista(sensores) {
+  const list = document.getElementById('stations-list');
+  list.innerHTML = '';
+  if (!sensores.length) {
+    list.innerHTML = '<div class="text-center p-xl text-on-surface-variant">Sin estaciones para este filtro</div>';
+    return;
+  }
+  sensores.forEach(s => {
+    const d = s.datos;
+    const isCrit  = d.estado === 'critico';
+    const isAlert = d.estado === 'alerta';
+    const borderClass = isCrit  ? 'border-l-4 border-l-error border border-outline-variant bg-error-container/10'
+                      : isAlert ? 'border-l-4 border-l-[#f97316] border border-outline-variant bg-orange-50/50'
+                      : 'border border-outline-variant hover:border-primary/50 bg-surface';
+    const badgeCls = isCrit  ? 'bg-error-container text-on-error-container'
+                   : isAlert ? 'bg-orange-100 text-orange-800'
+                   : 'bg-tertiary-fixed text-on-tertiary-fixed-variant';
+    const badgeText = isCrit ? 'Crítico' : isAlert ? 'Alerta' : 'Normal';
+    const qualColor = isCrit ? 'text-error' : isAlert ? 'text-[#f97316]' : 'text-tertiary';
+    const signaIcon = d.señal_lora < 75 ? 'sensors_off' : 'sensors';
+    const signaColor = d.señal_lora < 75 ? 'text-error' : 'text-tertiary';
+    const signaText = d.señal_lora < 75 ? 'DÉBIL' : 'ONLINE';
+    const tipoIcon = {rio:'water', laguna:'waves', reservorio:'water_full', paramo:'filter_hdr'}[s.tipo] || 'location_on';
+
+    const card = document.createElement('div');
+    card.className = `station-card p-md rounded-xl ${borderClass} shadow-sm hover:shadow-md transition-all cursor-pointer group`;
+    card.dataset.id = s.id;
+    card.onclick = () => enfocarSensor(s);
+    card.innerHTML = `
+      <div class="flex justify-between items-start mb-sm">
+        <div>
+          <h4 class="font-title-lg text-title-lg text-on-surface group-hover:text-primary transition-colors">${s.nombre}</h4>
+          <p class="text-body-md text-on-surface-variant flex items-center gap-xs">
+            <span class="material-symbols-outlined text-[16px]">${tipoIcon}</span>${s.ubicacion}
+          </p>
+        </div>
+        <span class="px-sm py-1 ${badgeCls} rounded font-label-bold text-[10px] uppercase whitespace-nowrap">${badgeText}</span>
+      </div>
+      <div class="flex items-end justify-between">
+        <div>
+          <p class="font-label-bold text-xs text-on-surface-variant">ÍNDICE DE CALIDAD</p>
+          <p class="font-headline-md ${qualColor}">${d.calidad}/100</p>
+        </div>
+        <div class="text-right">
+          <div class="flex items-center gap-xs justify-end ${signaColor}">
+            <span class="material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1;">${signaIcon}</span>
+            <span class="font-label-bold text-xs">${signaText}</span>
+          </div>
+          <p class="font-label-md text-xs text-on-surface-variant mt-xs">LoRa ${d.señal_lora}%</p>
+        </div>
+      </div>`;
+    list.appendChild(card);
+  });
+}
+
+function enfocarSensor(s) {
+  mapa.setView([s.lat, s.lng], 11, { animate: true });
+  marcadores[s.id]?.openPopup();
+  // Highlight card
+  document.querySelectorAll('.station-card').forEach(c => c.classList.remove('active'));
+  document.querySelector(`[data-id="${s.id}"]`)?.classList.add('active');
+}
+
+function exportarInforme() {
+  if (!sensoresData.length) return;
+  const lines = ['ID,Nombre,Ubicación,Tipo,Estado,pH,Temperatura,Turbidez,O2,Calidad,LoRa'];
+  sensoresData.forEach(s => {
+    const d = s.datos;
+    lines.push(`${s.id},"${s.nombre}","${s.ubicacion}",${s.tipo},${d.estado},${d.ph},${d.temperatura},${d.turbidez},${d.oxigeno_disuelto},${d.calidad},${d.señal_lora}`);
+  });
+  const blob = new Blob([lines.join('\n')], { type: 'text/csv' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `aquasense_informe_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+}
+</script>
+</body>
+</html>
