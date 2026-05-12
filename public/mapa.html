@@ -33,7 +33,7 @@ body{background-color:#f8f9fa;color:#191c1d;}
 <body class="bg-surface text-on-surface font-body-md">
 
 <!-- SIDEBAR NAV -->
-<aside id="sidebar" class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low shadow-sm flex flex-col p-md z-50" style="transition:width 0.2s ease;overflow:hidden">
+<aside id="sidebar" class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low shadow-sm flex flex-col p-md z-50">
   <div id="nav-logo-full" class="mb-xl px-md">
     <div class="flex items-center gap-md">
       <svg width="36" height="36" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
@@ -48,29 +48,21 @@ body{background-color:#f8f9fa;color:#191c1d;}
       </div>
     </div>
   </div>
-  <div id="nav-logo-mini" class="px-md mb-xl items-center justify-center hidden">
-    <svg width="32" height="32" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-      <defs><linearGradient id="lgm2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#006D77"/><stop offset="100%" style="stop-color:#00535b"/></linearGradient></defs>
-      <path d="M100 20 C60 80 40 110 40 140 A60 60 0 0 0 160 140 C160 110 140 80 100 20 Z" fill="url(#lgm2)"/>
-      <path d="M70 140 Q100 120 130 140 T190 140" fill="none" stroke="white" stroke-width="8" stroke-linecap="round" opacity="0.6"/>
-      <circle cx="100" cy="140" r="15" fill="white" opacity="0.3"/>
-    </svg>
-  </div>
   <nav class="flex-1 space-y-sm">
     <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="index.html">
-      <span class="material-symbols-outlined">dashboard</span><span class="nav-label font-body-md whitespace-nowrap">Panel Principal</span>
+      <span class="material-symbols-outlined">dashboard</span><span class="font-body-md">Panel Principal</span>
     </a>
-    <a class="flex items-center gap-md px-md py-sm bg-secondary-container text-on-secondary-container rounded-lg" href="#">
-      <span class="material-symbols-outlined">map</span><span class="nav-label font-body-md whitespace-nowrap">Mapa de Estaciones</span>
+    <a class="flex items-center gap-md px-md py-sm bg-secondary-container text-on-secondary-container rounded-lg" href="mapa.html">
+      <span class="material-symbols-outlined">map</span><span class="font-body-md">Mapa de Estaciones</span>
     </a>
-    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
-      <span class="material-symbols-outlined">notifications</span><span class="nav-label font-body-md whitespace-nowrap">Alertas</span>
-    </a>
-    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
-      <span class="material-symbols-outlined">analytics</span><span class="nav-label font-body-md whitespace-nowrap">Analítica</span>
+    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="alertas.html">
+      <span class="material-symbols-outlined">notifications</span><span class="font-body-md">Alertas</span>
     </a>
     <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
-      <span class="material-symbols-outlined">settings</span><span class="nav-label font-body-md whitespace-nowrap">Configuración</span>
+      <span class="material-symbols-outlined">analytics</span><span class="font-body-md">Analítica</span>
+    </a>
+    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+      <span class="material-symbols-outlined">settings</span><span class="font-body-md">Configuración</span>
     </a>
   </nav>
   <div class="mt-auto px-md py-md flex items-center gap-md border-t border-outline-variant">
@@ -82,19 +74,13 @@ body{background-color:#f8f9fa;color:#191c1d;}
       <p class="text-[10px] text-on-surface-variant uppercase tracking-wider">ODS 6 · Ecuador</p>
     </div>
   </div>
-  <div class="px-sm pt-sm border-t border-outline-variant mt-auto">
-    <button id="nav-toggle" class="flex items-center gap-md px-sm py-sm w-full text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg">
-      <span class="material-symbols-outlined" style="flex-shrink:0">chevron_left</span>
-      <span class="nav-label font-label-bold text-label-bold whitespace-nowrap">Colapsar</span>
-    </button>
-  </div>
 </aside>
 
 <!-- MAIN -->
-<main id="main-content" class="ml-64 min-h-screen flex flex-col" style="transition:margin-left 0.2s ease">
+<main id="main-content" class="ml-64 min-h-screen flex flex-col">
 
   <!-- HEADER -->
-  <header id="main-header" class="flex justify-between items-center w-full px-xl py-md bg-surface border-b border-outline-variant sticky top-0 z-40" style="transition:margin-left 0.2s ease,max-width 0.2s ease">
+  <header id="main-header" class="flex justify-between items-center w-full px-xl py-md bg-surface border-b border-outline-variant sticky top-0 z-40">
     <div class="flex items-center gap-sm">
       <span class="material-symbols-outlined text-primary">location_on</span>
       <h2 class="font-title-lg text-title-lg text-primary">Mapa de Estaciones en Tiempo Real</h2>
@@ -325,6 +311,5 @@ function exportarInforme() {
   a.click();
 }
 </script>
-<script src="js/nav.js"></script>
 </body>
 </html>
