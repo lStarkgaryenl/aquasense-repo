@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Analítica — AquaSense AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Public+Sans:wght@600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script id="tailwind-config">
+tailwind.config={darkMode:"class",theme:{extend:{"colors":{"on-tertiary-fixed-variant":"#00504b","tertiary-fixed":"#acefe7","on-primary":"#ffffff","secondary":"#006685","tertiary-fixed-dim":"#90d3cb","primary-fixed-dim":"#82d3de","on-error":"#ffffff","outline-variant":"#bec8ca","on-background":"#191c1d","on-tertiary":"#ffffff","primary-container":"#006d77","surface-container-lowest":"#ffffff","surface-container":"#edeeef","on-primary-container":"#9becf7","on-surface-variant":"#3e494a","on-primary-fixed-variant":"#004f56","on-primary-fixed":"#001f23","on-tertiary-fixed":"#00201e","on-secondary":"#ffffff","inverse-surface":"#2e3132","surface-variant":"#e1e3e4","error-container":"#ffdad6","surface":"#f8f9fa","surface-bright":"#f8f9fa","on-tertiary-container":"#a9ece4","surface-container-low":"#f3f4f5","surface-container-high":"#e7e8e9","secondary-container":"#79d4fe","on-secondary-fixed-variant":"#004d65","background":"#f8f9fa","inverse-on-surface":"#f0f1f2","error":"#ba1a1a","secondary-fixed":"#bfe9ff","surface-tint":"#006972","tertiary":"#01544f","on-error-container":"#93000a","secondary-fixed-dim":"#76d2fb","outline":"#6f797a","inverse-primary":"#82d3de","tertiary-container":"#286d67","on-surface":"#191c1d","primary":"#00535b","on-secondary-fixed":"#001f2a","on-secondary-container":"#005b77","surface-dim":"#d9dadb","surface-container-highest":"#e1e3e4","primary-fixed":"#9ff0fb"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"xl":"32px","lg":"24px","gutter":"24px","base":"4px","margin":"32px","xs":"4px","sm":"8px","md":"16px","max_width":"1440px"},"fontFamily":{"title-lg":["Inter"],"display-lg":["Public Sans"],"label-md":["Inter"],"headline-lg-mobile":["Public Sans"],"headline-md":["Public Sans"],"body-md":["Inter"],"body-lg":["Inter"],"label-bold":["Inter"],"headline-lg":["Public Sans"]},"fontSize":{"title-lg":["18px",{"lineHeight":"24px","fontWeight":"600"}],"display-lg":["48px",{"lineHeight":"56px","letterSpacing":"-0.02em","fontWeight":"700"}],"label-md":["12px",{"lineHeight":"16px","fontWeight":"500"}],"headline-lg-mobile":["24px",{"lineHeight":"32px","fontWeight":"600"}],"headline-md":["24px",{"lineHeight":"32px","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],"label-bold":["12px",{"lineHeight":"16px","letterSpacing":"0.05em","fontWeight":"700"}],"headline-lg":["32px",{"lineHeight":"40px","fontWeight":"600"}]}}}}
+</script>
+<style>
+.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}
+body{background-color:#f8f9fa;}
+</style>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+
+<!-- SIDEBAR -->
+<aside class="h-screen w-64 fixed left-0 top-0 flex flex-col p-md bg-surface-container-low shadow-sm z-50">
+  <div class="flex items-center gap-md mb-xl px-sm">
+    <svg width="40" height="40" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#006D77"/><stop offset="100%" style="stop-color:#00535b"/></linearGradient></defs>
+      <path d="M100 20 C60 80 40 110 40 140 A60 60 0 0 0 160 140 C160 110 140 80 100 20 Z" fill="url(#lg1)"/>
+      <path d="M70 140 Q100 120 130 140 T190 140" fill="none" stroke="white" stroke-width="8" stroke-linecap="round" opacity="0.6"/>
+      <circle cx="100" cy="140" r="15" fill="white" opacity="0.3"/>
+    </svg>
+    <div>
+      <h1 class="font-headline-md text-headline-md font-semibold text-primary">AquaSense AI</h1>
+      <p class="font-label-md text-label-md text-on-surface-variant">Sistema de Monitoreo</p>
+    </div>
+  </div>
+  <nav class="flex flex-col gap-xs grow">
+    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-95 duration-150 rounded-lg" href="index.html">
+      <span class="material-symbols-outlined">dashboard</span><span class="font-body-md">Panel Principal</span>
+    </a>
+    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-95 duration-150 rounded-lg" href="mapa.html">
+      <span class="material-symbols-outlined">map</span><span class="font-body-md">Mapa de Estaciones</span>
+    </a>
+    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-95 duration-150 rounded-lg" href="alertas.html">
+      <span class="material-symbols-outlined">notifications</span><span class="font-body-md">Alertas</span>
+    </a>
+    <a class="flex items-center gap-md px-md py-sm bg-secondary-container text-on-secondary-container rounded-lg font-bold" href="analitica.html">
+      <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">analytics</span><span class="font-body-md">Analítica</span>
+    </a>
+  </nav>
+  <div class="mt-auto border-t border-outline-variant pt-md">
+    <a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+      <span class="material-symbols-outlined">settings</span><span class="font-body-md">Configuración</span>
+    </a>
+  </div>
+</aside>
+
+<!-- HEADER -->
+<header class="flex justify-between items-center w-full px-xl py-md ml-64 max-w-[calc(100%-256px)] top-0 sticky z-40 bg-surface border-b border-outline-variant">
+  <h2 class="font-headline-md text-headline-md font-bold text-primary">Análisis de Datos</h2>
+  <div class="flex items-center gap-lg">
+    <div class="flex items-center gap-md">
+      <span id="reloj" class="font-label-bold text-label-bold text-on-surface-variant">--:--:--</span>
+      <span class="material-symbols-outlined text-on-surface-variant">wifi_tethering</span>
+    </div>
+    <div class="h-8 w-px bg-outline-variant"></div>
+    <div class="flex items-center gap-md">
+      <div class="text-right">
+        <p class="font-label-bold text-label-bold text-on-surface">AquaSense AI</p>
+        <p class="font-label-md text-label-md text-on-surface-variant">ODS 6 · Ecuador</p>
+      </div>
+      <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+        <span class="material-symbols-outlined text-white text-sm" style="font-variation-settings:'FILL' 1;">water_drop</span>
+      </div>
+    </div>
+    <button onclick="exportarReporte()" class="bg-primary text-on-primary px-lg py-sm rounded-lg font-label-bold flex items-center gap-sm transition-all hover:opacity-90 active:scale-95">
+      <span class="material-symbols-outlined text-[18px]">download</span>EXPORTAR REPORTE
+    </button>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main class="ml-64 p-xl max-w-[calc(100%-256px)] space-y-lg">
+
+  <!-- KPI CARDS -->
+  <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+    <div class="bg-white p-lg rounded-xl shadow-sm border border-outline-variant/30">
+      <div class="flex justify-between items-start mb-sm">
+        <span class="font-label-bold text-on-surface-variant uppercase tracking-tighter">Promedio ICA</span>
+        <span class="material-symbols-outlined text-primary">waves</span>
+      </div>
+      <div class="flex items-baseline gap-sm">
+        <span id="kpi-ica" class="font-display-lg text-display-lg text-on-surface">—</span>
+        <span id="kpi-ica-badge" class="text-[10px] font-bold px-sm py-0.5 rounded-full flex items-center gap-0.5"></span>
+      </div>
+      <p id="kpi-ica-estado" class="text-body-md text-on-surface-variant mt-xs">Cargando...</p>
+    </div>
+    <div class="bg-white p-lg rounded-xl shadow-sm border border-outline-variant/30">
+      <div class="flex justify-between items-start mb-sm">
+        <span class="font-label-bold text-on-surface-variant uppercase tracking-tighter">Sensores Activos</span>
+        <span class="material-symbols-outlined text-primary">sensors</span>
+      </div>
+      <div class="flex items-baseline gap-sm">
+        <span id="kpi-sensores" class="font-display-lg text-display-lg text-on-surface">—</span>
+      </div>
+      <p class="text-body-md text-on-surface-variant mt-xs">Red LoRa operativa</p>
+    </div>
+    <div class="bg-white p-lg rounded-xl shadow-sm border border-outline-variant/30">
+      <div class="flex justify-between items-start mb-sm">
+        <span class="font-label-bold text-on-surface-variant uppercase tracking-tighter">Alertas Activas</span>
+        <span class="material-symbols-outlined text-error">warning</span>
+      </div>
+      <div class="flex items-baseline gap-sm">
+        <span id="kpi-alertas" class="font-display-lg text-display-lg text-on-surface">—</span>
+        <span id="kpi-criticas" class="text-body-md text-error font-semibold"></span>
+      </div>
+      <p class="text-body-md text-on-surface-variant mt-xs">Requieren atención</p>
+    </div>
+    <div class="bg-white p-lg rounded-xl shadow-sm border border-outline-variant/30">
+      <div class="flex justify-between items-start mb-sm">
+        <span class="font-label-bold text-on-surface-variant uppercase tracking-tighter">Señal LoRa Prom.</span>
+        <span class="material-symbols-outlined text-primary">wifi_tethering</span>
+      </div>
+      <div class="flex items-baseline gap-sm">
+        <span id="kpi-lora" class="font-display-lg text-display-lg text-on-surface">—</span>
+      </div>
+      <p class="text-body-md text-on-surface-variant mt-xs">Cobertura de red</p>
+    </div>
+  </section>
+
+  <!-- BENTO GRID -->
+  <div class="grid grid-cols-12 gap-gutter">
+
+    <!-- Gráfico comparativo líneas — 8 cols -->
+    <div class="col-span-12 lg:col-span-8 bg-white p-lg rounded-xl shadow-sm border border-outline-variant/30">
+      <div class="flex justify-between items-center mb-lg">
+        <h3 class="font-title-lg text-title-lg">Tendencia Comparativa de Calidad (24h)</h3>
+        <div class="flex gap-md text-label-md flex-wrap">
+          <div class="flex items-center gap-xs"><span class="w-3 h-3 rounded-full bg-[#00535b] inline-block"></span>Machángara</div>
+          <div class="flex items-center gap-xs"><span class="w-3 h-3 rounded-full bg-[#006685] inline-block"></span>Esmeraldas</div>
+          <div class="flex items-center gap-xs"><span class="w-3 h-3 rounded-full bg-[#ba1a1a] inline-block"></span>Pastaza</div>
+          <div class="flex items-center gap-xs"><span class="w-3 h-3 rounded-full bg-[#01544f] inline-block"></span>El Ángel</div>
+        </div>
+      </div>
+      <canvas id="chart-comparativo" height="200"></canvas>
+    </div>
+
+    <!-- Distribución de calidad — 4 cols -->
+    <div class="col-span-12 lg:col-span-4 bg-white p-lg rounded-xl shadow-sm border border-outline-variant/30 flex flex-col">
+      <h3 class="font-title-lg text-title-lg mb-lg">Distribución de Calidad</h3>
+      <div class="flex-grow flex items-center justify-center">
+        <canvas id="chart-donut" style="max-width:200px;max-height:200px"></canvas>
+      </div>
+      <div id="donut-legend" class="space-y-sm mt-md"></div>
+    </div>
+
+    <!-- Heatmap correlación — 6 cols -->
+    <div class="col-span-12 lg:col-span-6 bg-white p-lg rounded-xl shadow-sm border border-outline-variant/30">
+      <h3 class="font-title-lg text-title-lg mb-lg">Correlación de Parámetros</h3>
+      <div class="grid grid-cols-5 gap-xs">
+        <div></div>
+        <div class="text-[10px] font-bold text-center uppercase text-on-surface-variant">Temp</div>
+        <div class="text-[10px] font-bold text-center uppercase text-on-surface-variant">O₂</div>
+        <div class="text-[10px] font-bold text-center uppercase text-on-surface-variant">pH</div>
+        <div class="text-[10px] font-bold text-center uppercase text-on-surface-variant">Turb</div>
+        <div class="text-[10px] font-bold uppercase text-on-surface-variant flex items-center">Temp</div>
+        <div class="h-10 rounded-sm" style="background:rgba(0,83,91,0.9)"></div>
+        <div class="h-10 rounded-sm" style="background:rgba(0,83,91,0.6)"></div>
+        <div class="h-10 rounded-sm" style="background:rgba(0,83,91,0.2)"></div>
+        <div class="h-10 rounded-sm" style="background:rgba(0,83,91,0.1)"></div>
+        <div class="text-[10px] font-bold uppercase text-on-surface-variant flex items-center">O₂</div>
+        <div class="h-10 rounded-sm" style="background:rgba(0,83,91,0.6)"></div>
+        <div class="h-10 rounded-sm" style="background:rgba(0,83,91,0.9)"></div>
+        <div class="h-10 rounded-sm" style="background:rgba(0,83,91,0.35)"></div>
+        <div class="h-10 rounded-sm" style="background:rgba(0,83,91,0.05)"></div>
+        <div class="text-[10px] font-bold uppercase text-on-surface-variant flex items-center">pH</div>
+        <div class="h-10 rounded-sm" style="background:rgba(0,83,91,0.2)"></div>
+        <div class="h-10 rounded-sm" style="background:rgba(0,83,91,0.35)"></div>
+        <div class="h-10 rounded-sm" style="background:rgba(0,83,91,0.9)"></div>
+        <div class="h-10 rounded-sm" style="background:rgba(0,83,91,0.15)"></div>
+        <div class="text-[10px] font-bold uppercase text-on-surface-variant flex items-center">Turb</div>
+        <div class="h-10 rounded-sm" style="background:rgba(0,83,91,0.1)"></div>
+        <div class="h-10 rounded-sm" style="background:rgba(0,83,91,0.05)"></div>
+        <div class="h-10 rounded-sm" style="background:rgba(0,83,91,0.15)"></div>
+        <div class="h-10 rounded-sm" style="background:rgba(0,83,91,0.9)"></div>
+      </div>
+      <div class="mt-md flex items-center justify-end gap-sm">
+        <span class="text-label-md text-on-surface-variant">Menos</span>
+        <div class="w-32 h-2 rounded-full" style="background:linear-gradient(to right,rgba(0,83,91,0.05),rgba(0,83,91,0.9))"></div>
+        <span class="text-label-md text-on-surface-variant">Más correlación</span>
+      </div>
+    </div>
+
+    <!-- Predicciones IA — 6 cols -->
+    <div class="col-span-12 lg:col-span-6 bg-primary-container text-on-primary-container p-lg rounded-xl shadow-sm overflow-hidden relative">
+      <div class="absolute -right-8 -top-8 opacity-10">
+        <span class="material-symbols-outlined text-[160px]">psychology</span>
+      </div>
+      <div class="flex justify-between items-start mb-lg relative">
+        <div>
+          <h3 class="font-title-lg text-title-lg text-white">Predicciones IA</h3>
+          <p class="text-body-md opacity-80" style="color:rgba(255,255,255,0.8)">Pronóstico de calidad — próximos 7 días</p>
+        </div>
+        <span class="text-white text-[10px] font-bold px-md py-1 rounded-full uppercase tracking-widest" style="background:rgba(255,255,255,0.2)">Modelo: AquaV3</span>
+      </div>
+      <div id="predicciones-grid" class="grid grid-cols-7 gap-sm relative"></div>
+      <div id="prediccion-insight" class="mt-lg p-md rounded-lg flex items-start gap-md relative" style="background:rgba(255,255,255,0.08)">
+        <span class="material-symbols-outlined text-yellow-300 mt-xs flex-shrink-0">lightbulb</span>
+        <p class="text-body-md text-white"><span class="font-bold">Insight:</span> Cargando análisis predictivo...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLA TOP ESTACIONES -->
+  <section class="bg-white rounded-xl shadow-sm border border-outline-variant/30 overflow-hidden">
+    <div class="px-lg py-md border-b border-outline-variant flex justify-between items-center">
+      <h3 class="font-title-lg text-title-lg">Resumen por Estación</h3>
+      <button onclick="window.location.href='index.html'" class="text-primary font-label-bold flex items-center gap-xs hover:underline">
+        Ver Dashboard <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+      </button>
+    </div>
+    <table class="w-full text-left border-collapse">
+      <thead class="bg-surface">
+        <tr>
+          <th class="px-lg py-sm font-label-bold text-on-surface-variant uppercase text-[10px]">Estación</th>
+          <th class="px-lg py-sm font-label-bold text-on-surface-variant uppercase text-[10px]">Índice ICA</th>
+          <th class="px-lg py-sm font-label-bold text-on-surface-variant uppercase text-[10px]">pH</th>
+          <th class="px-lg py-sm font-label-bold text-on-surface-variant uppercase text-[10px]">Turbidez</th>
+          <th class="px-lg py-sm font-label-bold text-on-surface-variant uppercase text-[10px]">Tendencia</th>
+          <th class="px-lg py-sm font-label-bold text-on-surface-variant uppercase text-[10px]">Estado</th>
+        </tr>
+      </thead>
+      <tbody id="tabla-estaciones" class="divide-y divide-outline-variant">
+        <tr><td colspan="6" class="px-lg py-xl text-center text-on-surface-variant">Cargando...</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+
+<!-- FAB -->
+<button class="fixed bottom-margin right-margin bg-primary text-on-primary w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-110 active:scale-95 z-50" title="Nueva métrica">
+  <span class="material-symbols-outlined text-[28px]">add_chart</span>
+</button>
+
+<script>
+const API_BASE = '/aquasense/api';
+let sensoresData = [];
+let historialData = {};
+let chartComp = null;
+let chartDonut = null;
+
+document.addEventListener('DOMContentLoaded', () => {
+  actualizarReloj();
+  setInterval(actualizarReloj, 1000);
+  cargarDatos();
+  setInterval(cargarDatos, 20000);
+});
+
+function actualizarReloj() {
+  document.getElementById('reloj').textContent = new Date().toLocaleTimeString('es-EC');
+}
+
+async function cargarDatos() {
+  try {
+    const [sR, aR, hR] = await Promise.all([
+      fetch(`${API_BASE}/sensores.php`),
+      fetch(`${API_BASE}/alertas.php`),
+      fetch(`${API_BASE}/historial.php`)
+    ]);
+    const s = await sR.json();
+    const a = await aR.json();
+    const h = await hR.json();
+    sensoresData  = s.sensores;
+    historialData = h.historial;
+    actualizarKPIs(s, a);
+    renderChartComparativo();
+    renderChartDonut(s);
+    renderPredicciones(s);
+    renderTablaEstaciones(s);
+  } catch(e) { console.error(e); }
+}
+
+function actualizarKPIs(s, a) {
+  const avg = (s.sensores.reduce((acc,x)=>acc+x.datos.calidad,0)/s.sensores.length).toFixed(1);
+  document.getElementById('kpi-ica').textContent = avg;
+
+  const estado = avg >= 85 ? 'Excelente' : avg >= 70 ? 'Bueno' : avg >= 50 ? 'Regular' : 'Crítico';
+  const badgeColor = avg >= 85 ? 'bg-green-100 text-green-800' : avg >= 70 ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800';
+  document.getElementById('kpi-ica-badge').className = `text-[10px] font-bold px-sm py-0.5 rounded-full flex items-center gap-0.5 ${badgeColor}`;
+  document.getElementById('kpi-ica-badge').innerHTML = `<span class="material-symbols-outlined text-[12px]">trending_up</span>${estado}`;
+  document.getElementById('kpi-ica-estado').innerHTML = `Estado: <span class="font-semibold ${avg>=70?'text-green-700':'text-red-600'}">${estado}</span>`;
+
+  document.getElementById('kpi-sensores').textContent = `${s.sensores.filter(x=>x.activo).length}/${s.sensores.length}`;
+  document.getElementById('kpi-alertas').textContent  = a.alertas_pendientes;
+  document.getElementById('kpi-criticas').textContent = a.alertas_criticas > 0 ? `${a.alertas_criticas} crítica(s)` : '';
+
+  const loraAvg = Math.round(s.sensores.reduce((acc,x)=>acc+x.datos.señal_lora,0)/s.sensores.length);
+  document.getElementById('kpi-lora').textContent = loraAvg + '%';
+}
+
+function renderChartComparativo() {
+  const ids    = ['S-001','S-003','S-005','S-006'];
+  const colors = ['#00535b','#006685','#ba1a1a','#01544f'];
+  const names  = ['Machángara','Esmeraldas','Pastaza','El Ángel'];
+  const ctx = document.getElementById('chart-comparativo').getContext('2d');
+  if (chartComp) chartComp.destroy();
+
+  const labels = historialData['S-001']?.map(d=>d.hora) || [];
+  const datasets = ids.map((id,i) => ({
+    label: names[i],
+    data: historialData[id]?.map(d=>d.calidad) || [],
+    borderColor: colors[i],
+    backgroundColor: 'transparent',
+    borderWidth: 2,
+    pointRadius: 0,
+    tension: 0.4,
+  }));
+
+  chartComp = new Chart(ctx, {
+    type: 'line',
+    data: { labels, datasets },
+    options: {
+      responsive: true,
+      interaction: { intersect: false, mode: 'index' },
+      plugins: {
+        legend: { display: false },
+        tooltip: { backgroundColor:'#fff', borderColor:'#bec8ca', borderWidth:1, titleColor:'#191c1d', bodyColor:'#3e494a', titleFont:{family:'Inter',size:11}, bodyFont:{family:'Inter',size:11} }
+      },
+      scales: {
+        x: { ticks:{color:'#6f797a',font:{family:'Inter',size:10},maxRotation:0,maxTicksLimit:8}, grid:{color:'rgba(0,0,0,0.04)'} },
+        y: { min:0, max:100, ticks:{color:'#6f797a',font:{family:'Inter',size:10}}, grid:{color:'rgba(0,0,0,0.04)'} }
+      }
+    }
+  });
+}
+
+function renderChartDonut(s) {
+  const excelente = s.sensores.filter(x=>x.datos.calidad>=85).length;
+  const bueno     = s.sensores.filter(x=>x.datos.calidad>=70&&x.datos.calidad<85).length;
+  const regular   = s.sensores.filter(x=>x.datos.calidad>=50&&x.datos.calidad<70).length;
+  const pobre     = s.sensores.filter(x=>x.datos.calidad<50).length;
+  const total     = s.sensores.length;
+
+  const ctx = document.getElementById('chart-donut').getContext('2d');
+  if (chartDonut) chartDonut.destroy();
+
+  chartDonut = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Excelente','Bueno','Regular','Pobre'],
+      datasets: [{ data:[excelente,bueno,regular,pobre], backgroundColor:['#00535b','#006685','#f59e0b','#ba1a1a'], borderWidth:0, hoverOffset:4 }]
+    },
+    options: {
+      responsive: true,
+      cutout: '68%',
+      plugins: { legend:{ display:false }, tooltip:{ callbacks:{ label: ctx => ` ${ctx.label}: ${ctx.raw} sensor(es)` } } }
+    }
+  });
+
+  const pct = n => total ? Math.round(n/total*100) : 0;
+  document.getElementById('donut-legend').innerHTML = [
+    ['#00535b','Excelente (≥85%)',excelente],
+    ['#006685','Bueno (70–84%)',bueno],
+    ['#f59e0b','Regular (50–69%)',regular],
+    ['#ba1a1a','Pobre (<50%)',pobre],
+  ].map(([c,l,n]) => `
+    <div class="flex justify-between items-center text-body-md">
+      <div class="flex items-center gap-sm"><span class="w-2 h-2 rounded-full inline-block" style="background:${c}"></span>${l}</div>
+      <span class="font-bold">${pct(n)}%</span>
+    </div>`).join('');
+}
+
+function renderPredicciones(s) {
+  const avgCalidad = s.sensores.reduce((acc,x)=>acc+x.datos.calidad,0)/s.sensores.length;
+  const dias = ['LUN','MAR','MIÉ','JUE','VIE','SÁB','DOM'];
+  // Simulación de predicción basada en calidad actual con variación aleatoria estable
+  const seed = Math.floor(Date.now() / 86400000); // Cambia por día
+  const pred = dias.map((d,i) => {
+    const val = Math.round(avgCalidad + Math.sin(seed+i)*8 + Math.cos(seed*i)*5);
+    return Math.min(100, Math.max(20, val));
+  });
+
+  document.getElementById('predicciones-grid').innerHTML = dias.map((d,i) => {
+    const v = pred[i];
+    const icon = v >= 80 ? 'check_circle' : v >= 60 ? 'warning' : 'error';
+    const iconColor = v >= 80 ? 'text-green-300' : v >= 60 ? 'text-yellow-300' : 'text-red-300';
+    const isToday = i === new Date().getDay()-1;
+    return `<div class="p-sm rounded-lg text-center backdrop-blur-md ${isToday?'border border-white/30':''}" style="background:rgba(255,255,255,${isToday?'0.2':'0.1'})">
+      <p class="font-label-bold text-[10px] mb-xs opacity-70 text-white">${d}</p>
+      <p class="font-bold text-white text-sm">${v}</p>
+      <span class="material-symbols-outlined text-[16px] ${iconColor}" style="font-variation-settings:'FILL' 1">${icon}</span>
+    </div>`;
+  }).join('');
+
+  const minVal = Math.min(...pred);
+  const minDia = dias[pred.indexOf(minVal)];
+  const maxVal = Math.max(...pred);
+  const tendencia = maxVal - minVal > 15 ? 'alta variabilidad' : 'estabilidad';
+  document.getElementById('prediccion-insight').querySelector('p').innerHTML =
+    `<span class="font-bold">Insight:</span> Se proyecta ${tendencia} en la calidad hídrica. Valor mínimo esperado: ${minVal} el ${minDia}. ${minVal < 70 ? 'Se recomienda monitoreo reforzado.' : 'Los parámetros se mantienen dentro del rango aceptable.'}`;
+}
+
+function renderTablaEstaciones(s) {
+  const tbody = document.getElementById('tabla-estaciones');
+  tbody.innerHTML = s.sensores.map(sen => {
+    const d = sen.datos;
+    const icaColor = d.calidad>=85?'bg-green-100 text-green-800':d.calidad>=70?'bg-yellow-100 text-yellow-800':d.calidad>=50?'bg-orange-100 text-orange-800':'bg-red-100 text-red-800';
+    const trendIcon = d.calidad>=70?'trending_up':d.calidad>=50?'trending_flat':'trending_down';
+    const trendColor = d.calidad>=70?'text-green-600':d.calidad>=50?'text-yellow-600':'text-red-600';
+    const estadoBadge = d.estado==='critico'
+      ? '<span class="bg-red-100 text-red-800 px-sm py-0.5 rounded font-label-bold text-[10px]">CRÍTICO</span>'
+      : d.estado==='alerta'
+        ? '<span class="bg-amber-100 text-amber-800 px-sm py-0.5 rounded font-label-bold text-[10px]">ALERTA</span>'
+        : '<span class="bg-green-100 text-green-800 px-sm py-0.5 rounded font-label-bold text-[10px]">NORMAL</span>';
+    return `<tr class="hover:bg-tertiary-fixed transition-colors">
+      <td class="px-lg py-md font-body-md font-semibold">${sen.nombre} <span class="text-on-surface-variant font-normal">(${sen.id})</span></td>
+      <td class="px-lg py-md"><span class="${icaColor} px-sm py-0.5 rounded-lg font-label-bold text-label-md">${d.calidad}/100</span></td>
+      <td class="px-lg py-md font-body-md">${d.ph}</td>
+      <td class="px-lg py-md font-body-md">${d.turbidez} NTU</td>
+      <td class="px-lg py-md ${trendColor}"><span class="material-symbols-outlined align-middle">${trendIcon}</span></td>
+      <td class="px-lg py-md">${estadoBadge}</td>
+    </tr>`;
+  }).join('');
+}
+
+function exportarReporte() {
+  if (!sensoresData.length) return;
+  const lines = ['Estación,ID,Tipo,Calidad,pH,Temperatura,Turbidez,O2,LoRa,Estado'];
+  sensoresData.forEach(s => {
+    const d = s.datos;
+    lines.push(`"${s.nombre}",${s.id},${s.tipo},${d.calidad},${d.ph},${d.temperatura},${d.turbidez},${d.oxigeno_disuelto},${d.señal_lora},${d.estado}`);
+  });
+  const blob = new Blob([lines.join('\n')], {type:'text/csv'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `aquasense_analitica_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+}
+</script>
+</body>
+</html>
