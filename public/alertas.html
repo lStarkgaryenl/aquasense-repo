@@ -16,6 +16,15 @@ body{background-color:#f8f9fa;color:#191c1d;font-family:'Inter',sans-serif;}
 #sidebar{transition:width 0.2s ease;}
 .custom-scroll::-webkit-scrollbar{width:4px}
 .custom-scroll::-webkit-scrollbar-thumb{background:#bec8ca;border-radius:4px}
+
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:9998;display:flex;align-items:center;justify-content:center;padding:24px;}
+.modal-box{background:#fff;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,0.2);width:100%;max-width:520px;max-height:90vh;overflow-y:auto;animation:modalIn 0.18s ease;}
+@keyframes modalIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.modal-row{display:flex;justify-content:space-between;align-items:flex-start;padding:8px 0;border-bottom:1px solid #edeeef;}
+.modal-row:last-child{border-bottom:none;}
+.modal-label{font-size:12px;font-weight:600;color:#6f797a;text-transform:uppercase;letter-spacing:0.05em;min-width:140px;}
+.modal-val{font-size:14px;color:#191c1d;font-weight:500;text-align:right;}
+
 </style>
 </head>
 <body class="bg-background text-on-background min-h-screen">
@@ -330,10 +339,10 @@ function renderTabla(alertas) {
       <td class="px-lg py-md">${estadoHtml}</td>
       <td class="px-lg py-md text-right">
         <div class="flex justify-end gap-sm opacity-0 group-hover:opacity-100 transition-opacity">
-          <button class="p-xs text-primary hover:bg-primary-container/10 rounded" title="Ver Detalles">
+          <button onclick="abrirDetalles('${a.id}')" class="p-xs text-primary hover:bg-primary-container/10 rounded" title="Ver Detalles">
             <span class="material-symbols-outlined">visibility</span>
           </button>
-          <button class="p-xs text-secondary hover:bg-secondary-container/10 rounded" title="Asignar">
+          <button onclick="abrirAsignar('${a.id}')" class="p-xs text-secondary hover:bg-secondary-container/10 rounded" title="Asignar Responsable">
             <span class="material-symbols-outlined">assignment_ind</span>
           </button>
         </div>
@@ -341,6 +350,106 @@ function renderTabla(alertas) {
     </tr>`;
   }).join('');
 }
+
+// ── MODALS ──
+let alertaActual = null;
+
+function abrirDetalles(id) {
+  const a = alertasData.find(x => x.id === id);
+  if (!a) return;
+  alertaActual = a;
+
+  const isCrit  = a.tipo === 'critico';
+  const isAlert = a.tipo === 'alerta';
+  const badgeHtml = isCrit
+    ? '<span class="inline-block bg-red-100 text-red-800 px-md py-xs rounded-full font-label-bold text-[11px] uppercase">⛔ Crítico</span>'
+    : isAlert
+      ? '<span class="inline-block bg-amber-100 text-amber-800 px-md py-xs rounded-full font-label-bold text-[11px] uppercase">⚠ Alerta</span>'
+      : '<span class="inline-block bg-green-100 text-green-800 px-md py-xs rounded-full font-label-bold text-[11px] uppercase">✓ Normal</span>';
+
+  const ts = new Date(a.timestamp).toLocaleString('es-EC',{day:'2-digit',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  const rows = [
+    ['ID de Alerta',    a.id],
+    ['Estación',        a.sensor_nombre],
+    ['Sensor ID',       a.sensor_id],
+    ['Parámetro',       a.parametro.replace(/_/g,' ').replace(/\b\w/g,l=>l.toUpperCase())],
+    ['Valor detectado', a.valor],
+    ['Límite seguro',   a.limite],
+    ['Timestamp',       ts],
+    ['Estado',          a.atendida ? '✓ Atendida' : 'Pendiente de atención'],
+    ['Descripción',     a.mensaje],
+  ];
+
+  document.getElementById('detalle-badge').innerHTML = badgeHtml;
+  document.getElementById('detalle-rows').innerHTML = rows.map(([l,v]) =>
+    `<div class="modal-row"><span class="modal-label">${l}</span><span class="modal-val">${v}</span></div>`
+  ).join('');
+
+  const btnRec = document.getElementById('btn-reconocer');
+  if (a.atendida) {
+    btnRec.disabled = true;
+    btnRec.className = 'px-lg py-sm bg-surface-container text-on-surface-variant rounded-lg font-label-bold text-label-bold cursor-not-allowed flex items-center gap-xs';
+    btnRec.innerHTML = '<span class="material-symbols-outlined text-[16px]">check_circle</span>Ya atendida';
+  } else {
+    btnRec.disabled = false;
+    btnRec.className = 'px-lg py-sm bg-primary text-on-primary rounded-lg font-label-bold text-label-bold hover:opacity-90 transition-all flex items-center gap-xs';
+    btnRec.innerHTML = '<span class="material-symbols-outlined text-[16px]">check_circle</span>Marcar como Atendida';
+    btnRec.onclick = () => marcarAtendida(id);
+  }
+
+  document.getElementById('modal-detalles').classList.remove('hidden');
+}
+
+function abrirAsignar(id) {
+  const a = alertasData.find(x => x.id === id);
+  if (!a) return;
+  alertaActual = a;
+  document.getElementById('asignar-nombre').textContent = `${a.sensor_nombre} — ${a.parametro.replace(/_/g,' ')}`;
+  document.getElementById('asignar-responsable').value = '';
+  document.getElementById('asignar-notas').value = '';
+  document.getElementById('modal-asignar').classList.remove('hidden');
+}
+
+function cerrarModal(id) {
+  document.getElementById(id).classList.add('hidden');
+  alertaActual = null;
+}
+
+function marcarAtendida(id) {
+  const a = alertasData.find(x => x.id === id);
+  if (a) {
+    a.atendida = true;
+    cerrarModal('modal-detalles');
+    filtrar();
+    mostrarToast('check_circle', `Alerta ${id} marcada como atendida`);
+  }
+}
+
+function confirmarAsignacion() {
+  const resp = document.getElementById('asignar-responsable').value;
+  if (!resp) {
+    document.getElementById('asignar-responsable').focus();
+    return;
+  }
+  const prior = document.querySelector('input[name="prioridad"]:checked')?.value || 'alta';
+  cerrarModal('modal-asignar');
+  mostrarToast('assignment_ind', `Alerta asignada a ${resp.split('—')[0].trim()}`);
+}
+
+function mostrarToast(icon, msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-icon').textContent = icon;
+  document.getElementById('toast-msg').textContent  = msg;
+  t.classList.remove('hidden');
+  setTimeout(() => t.classList.add('hidden'), 3500);
+}
+
+// Cerrar modal al hacer clic en el backdrop
+document.addEventListener('click', e => {
+  if (e.target.classList.contains('modal-backdrop')) {
+    e.target.classList.add('hidden');
+  }
+});
 
 function exportarCSV() {
   const lines = ['ID,Sensor,Parámetro,Valor,Límite,Tipo,Timestamp,Atendida'];
@@ -354,5 +463,94 @@ function exportarCSV() {
   link.click();
 }
 </script>
+
+<!-- MODAL: Ver Detalles -->
+<div id="modal-detalles" class="modal-backdrop hidden">
+  <div class="modal-box">
+    <div class="flex items-center justify-between px-lg py-md border-b border-outline-variant">
+      <div class="flex items-center gap-md">
+        <span class="material-symbols-outlined text-primary" style="font-variation-settings:'FILL' 1;">info</span>
+        <h3 class="font-title-lg text-title-lg text-on-surface">Detalle de Alerta</h3>
+      </div>
+      <button onclick="cerrarModal('modal-detalles')" class="material-symbols-outlined text-on-surface-variant hover:text-on-surface p-xs rounded-full hover:bg-surface-container transition-colors">close</button>
+    </div>
+    <div class="px-lg py-md">
+      <div id="detalle-badge" class="mb-md"></div>
+      <div id="detalle-rows"></div>
+    </div>
+    <div class="px-lg py-md border-t border-outline-variant flex gap-sm justify-end">
+      <button onclick="cerrarModal('modal-detalles')" class="px-lg py-sm border border-outline-variant text-on-surface-variant rounded-lg font-label-bold text-label-bold hover:bg-surface-container transition-colors">Cerrar</button>
+      <button id="btn-reconocer" class="px-lg py-sm bg-primary text-on-primary rounded-lg font-label-bold text-label-bold hover:opacity-90 transition-all flex items-center gap-xs">
+        <span class="material-symbols-outlined text-[16px]">check_circle</span>Marcar como Atendida
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Asignar -->
+<div id="modal-asignar" class="modal-backdrop hidden">
+  <div class="modal-box" style="max-width:420px">
+    <div class="flex items-center justify-between px-lg py-md border-b border-outline-variant">
+      <div class="flex items-center gap-md">
+        <span class="material-symbols-outlined text-secondary" style="font-variation-settings:'FILL' 1;">assignment_ind</span>
+        <h3 class="font-title-lg text-title-lg text-on-surface">Asignar Responsable</h3>
+      </div>
+      <button onclick="cerrarModal('modal-asignar')" class="material-symbols-outlined text-on-surface-variant hover:text-on-surface p-xs rounded-full hover:bg-surface-container transition-colors">close</button>
+    </div>
+    <div class="px-lg py-md flex flex-col gap-md">
+      <div>
+        <p class="font-label-bold text-label-bold text-on-surface-variant mb-xs">ALERTA</p>
+        <p id="asignar-nombre" class="font-body-md text-on-surface font-semibold"></p>
+      </div>
+      <div class="flex flex-col gap-xs">
+        <label class="font-label-bold text-label-bold text-on-surface-variant">ASIGNAR A</label>
+        <select id="asignar-responsable" class="w-full bg-surface border border-outline-variant rounded-lg px-md py-sm font-body-md text-on-surface focus:border-primary transition-all">
+          <option value="">Seleccionar responsable...</option>
+          <option>Ing. Carlos Mendoza — Técnico de Campo</option>
+          <option>Dra. Ana Torres — Especialista Hídrica</option>
+          <option>Ing. Roberto Silva — Inspector Ambiental</option>
+          <option>Lic. María Flores — Coordinadora Regional</option>
+          <option>Ing. Jorge Vásquez — Analista de Calidad</option>
+        </select>
+      </div>
+      <div class="flex flex-col gap-xs">
+        <label class="font-label-bold text-label-bold text-on-surface-variant">PRIORIDAD</label>
+        <div class="flex gap-sm">
+          <label class="flex items-center gap-xs cursor-pointer">
+            <input type="radio" name="prioridad" value="alta" class="text-error" checked/>
+            <span class="font-body-md text-on-surface">Alta</span>
+          </label>
+          <label class="flex items-center gap-xs cursor-pointer">
+            <input type="radio" name="prioridad" value="media" class="text-amber-500"/>
+            <span class="font-body-md text-on-surface">Media</span>
+          </label>
+          <label class="flex items-center gap-xs cursor-pointer">
+            <input type="radio" name="prioridad" value="baja"/>
+            <span class="font-body-md text-on-surface">Baja</span>
+          </label>
+        </div>
+      </div>
+      <div class="flex flex-col gap-xs">
+        <label class="font-label-bold text-label-bold text-on-surface-variant">NOTAS (OPCIONAL)</label>
+        <textarea id="asignar-notas" rows="3" placeholder="Instrucciones adicionales para el responsable..." class="w-full bg-surface border border-outline-variant rounded-lg px-md py-sm font-body-md text-on-surface focus:border-primary transition-all resize-none"></textarea>
+      </div>
+    </div>
+    <div class="px-lg py-md border-t border-outline-variant flex gap-sm justify-end">
+      <button onclick="cerrarModal('modal-asignar')" class="px-lg py-sm border border-outline-variant text-on-surface-variant rounded-lg font-label-bold text-label-bold hover:bg-surface-container transition-colors">Cancelar</button>
+      <button onclick="confirmarAsignacion()" class="px-lg py-sm bg-secondary text-on-secondary rounded-lg font-label-bold text-label-bold hover:opacity-90 transition-all flex items-center gap-xs">
+        <span class="material-symbols-outlined text-[16px]">send</span>Confirmar Asignación
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast" class="fixed bottom-xl right-xl z-[9999] hidden">
+  <div class="bg-on-surface text-inverse-on-surface px-lg py-md rounded-xl shadow-xl flex items-center gap-md font-body-md" style="background:#2e3132;color:#f0f1f2">
+    <span id="toast-icon" class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1;">check_circle</span>
+    <span id="toast-msg"></span>
+  </div>
+</div>
+
 </body>
 </html>
