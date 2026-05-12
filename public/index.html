@@ -6,6 +6,8 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Public+Sans:wght@600;700&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script id="tailwind-config">
 tailwind.config={darkMode:"class",theme:{extend:{"colors":{"on-tertiary":"#ffffff","surface-dim":"#d9dadb","surface-container":"#edeeef","surface-variant":"#e1e3e4","on-error-container":"#93000a","primary":"#00535b","on-tertiary-container":"#a9ece4","surface-container-lowest":"#ffffff","surface-tint":"#006972","secondary":"#006685","on-tertiary-fixed-variant":"#00504b","primary-fixed-dim":"#82d3de","tertiary-fixed-dim":"#90d3cb","surface-container-low":"#f3f4f5","primary-container":"#006d77","on-secondary-container":"#005b77","on-secondary":"#ffffff","inverse-surface":"#2e3132","inverse-primary":"#82d3de","on-tertiary-fixed":"#00201e","tertiary-fixed":"#acefe7","on-secondary-fixed-variant":"#004d65","on-error":"#ffffff","tertiary-container":"#286d67","on-primary-fixed":"#001f23","on-primary-container":"#9becf7","on-secondary-fixed":"#001f2a","on-primary":"#ffffff","on-primary-fixed-variant":"#004f56","error":"#ba1a1a","primary-fixed":"#9ff0fb","outline":"#6f797a","on-surface-variant":"#3e494a","surface-bright":"#f8f9fa","inverse-on-surface":"#f0f1f2","surface-container-high":"#e7e8e9","background":"#f8f9fa","surface-container-highest":"#e1e3e4","on-background":"#191c1d","surface":"#f8f9fa","outline-variant":"#bec8ca","error-container":"#ffdad6","tertiary":"#01544f","secondary-container":"#79d4fe","secondary-fixed-dim":"#76d2fb","secondary-fixed":"#bfe9ff","on-surface":"#191c1d"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"max_width":"1440px","margin":"32px","xl":"32px","sm":"8px","gutter":"24px","lg":"24px","md":"16px","xs":"4px","base":"4px"},"fontFamily":{"headline-lg":["Public Sans"],"body-lg":["Inter"],"body-md":["Inter"],"display-lg":["Public Sans"],"headline-md":["Public Sans"],"headline-lg-mobile":["Public Sans"],"title-lg":["Inter"],"label-md":["Inter"],"label-bold":["Inter"]},"fontSize":{"headline-lg":["32px",{"lineHeight":"40px","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"display-lg":["48px",{"lineHeight":"56px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-md":["24px",{"lineHeight":"32px","fontWeight":"600"}],"headline-lg-mobile":["24px",{"lineHeight":"32px","fontWeight":"600"}],"title-lg":["18px",{"lineHeight":"24px","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","fontWeight":"500"}],"label-bold":["12px",{"lineHeight":"16px","letterSpacing":"0.05em","fontWeight":"700"}]}}}}
@@ -17,6 +19,17 @@ body{background-color:#f8f9fa;color:#191c1d;}
 @keyframes cpulse{0%,100%{box-shadow:0 0 0 0 rgba(186,26,26,0.2)}50%{box-shadow:0 0 0 6px rgba(186,26,26,0)}}
 .custom-scroll::-webkit-scrollbar{width:4px}
 .custom-scroll::-webkit-scrollbar-thumb{background:#bec8ca;border-radius:4px}
+#mapa-ecuador{height:100%;width:100%;min-height:380px;}
+.leaflet-popup-content-wrapper{border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,0.12);font-family:'Inter',sans-serif;}
+.leaflet-popup-content{margin:12px 16px;font-size:13px;line-height:1.5;}
+.popup-title{font-weight:700;font-size:14px;color:#00535b;margin-bottom:6px;}
+.popup-row{display:flex;justify-content:space-between;gap:16px;margin:2px 0;}
+.popup-label{color:#6f797a;}
+.popup-val{font-weight:600;color:#191c1d;}
+.popup-badge{display:inline-block;padding:2px 10px;border-radius:20px;font-size:11px;font-weight:700;margin-top:6px;}
+.badge-normal{background:#dcfce7;color:#166534;}
+.badge-alerta{background:#ffedd5;color:#9a3412;}
+.badge-critico{background:#fee2e2;color:#991b1b;}
 </style>
 </head>
 <body class="font-body-md text-on-surface">
@@ -87,52 +100,64 @@ body{background-color:#f8f9fa;color:#191c1d;}
       <div class="w-12 h-12 rounded-full bg-primary-container/10 flex items-center justify-center text-primary-container">
         <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">sensors</span>
       </div>
-      <div>
-        <p class="font-label-bold text-label-bold text-on-surface-variant">ESTACIONES ACTIVAS</p>
-        <p id="stat-sensores" class="font-headline-md text-headline-md text-primary">—</p>
-      </div>
+      <div><p class="font-label-bold text-label-bold text-on-surface-variant">ESTACIONES ACTIVAS</p>
+      <p id="stat-sensores" class="font-headline-md text-headline-md text-primary">—</p></div>
     </div>
     <div class="bg-white p-md rounded-lg shadow-sm border border-surface-container flex items-center gap-md">
       <div class="w-12 h-12 rounded-full bg-error-container/20 flex items-center justify-center text-error">
         <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">warning</span>
       </div>
-      <div>
-        <p class="font-label-bold text-label-bold text-on-surface-variant">ALERTAS ACTIVAS</p>
-        <p id="stat-alertas" class="font-headline-md text-headline-md text-error">—</p>
-      </div>
+      <div><p class="font-label-bold text-label-bold text-on-surface-variant">ALERTAS ACTIVAS</p>
+      <p id="stat-alertas" class="font-headline-md text-headline-md text-error">—</p></div>
     </div>
     <div class="bg-white p-md rounded-lg shadow-sm border border-surface-container flex items-center gap-md">
       <div class="w-12 h-12 rounded-full bg-tertiary-container/10 flex items-center justify-center text-tertiary">
         <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">location_on</span>
       </div>
-      <div>
-        <p class="font-label-bold text-label-bold text-on-surface-variant">PUNTOS CRÍTICOS</p>
-        <p id="stat-criticos" class="font-headline-md text-headline-md text-tertiary">—</p>
-      </div>
+      <div><p class="font-label-bold text-label-bold text-on-surface-variant">PUNTOS CRÍTICOS</p>
+      <p id="stat-criticos" class="font-headline-md text-headline-md text-tertiary">—</p></div>
     </div>
     <div class="bg-white p-md rounded-lg shadow-sm border border-surface-container flex items-center gap-md">
       <div class="w-12 h-12 rounded-full bg-secondary-container/10 flex items-center justify-center text-secondary">
         <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">waves</span>
       </div>
-      <div>
-        <p class="font-label-bold text-label-bold text-on-surface-variant">CALIDAD PROMEDIO</p>
-        <p id="stat-calidad" class="font-headline-md text-headline-md text-secondary">—</p>
+      <div><p class="font-label-bold text-label-bold text-on-surface-variant">CALIDAD PROMEDIO</p>
+      <p id="stat-calidad" class="font-headline-md text-headline-md text-secondary">—</p></div>
+    </div>
+  </section>
+
+  <!-- GRID: Sensores (8) + Mapa (4) -->
+  <div class="grid grid-cols-12 gap-gutter">
+
+    <!-- SENSOR CARDS -->
+    <section class="col-span-8 flex flex-col gap-md">
+      <div class="flex justify-between items-center">
+        <h3 class="font-title-lg text-title-lg text-on-surface">Monitoreo en Vivo de Estaciones</h3>
+        <button onclick="cargarDatos()" class="text-primary font-label-bold hover:underline">↻ ACTUALIZAR</button>
       </div>
-    </div>
-  </section>
+      <div id="sensors-grid" class="grid grid-cols-2 gap-gutter overflow-y-auto custom-scroll" style="max-height:560px">
+        <div class="col-span-2 text-center p-xl text-on-surface-variant">Cargando estaciones...</div>
+      </div>
+    </section>
 
-  <!-- SENSOR CARDS — ancho completo -->
-  <section>
-    <div class="flex justify-between items-center mb-md">
-      <h3 class="font-title-lg text-title-lg text-on-surface">Monitoreo en Vivo de Estaciones</h3>
-      <button onclick="cargarDatos()" class="text-primary font-label-bold hover:underline">↻ ACTUALIZAR</button>
+    <!-- MAPA -->
+    <div class="col-span-4 flex flex-col gap-gutter">
+      <section class="bg-white rounded-xl shadow-sm border border-surface-container overflow-hidden flex flex-col" style="height:560px">
+        <div class="p-md border-b border-surface-container flex justify-between items-center flex-shrink-0">
+          <h3 class="font-title-lg text-title-lg text-on-surface">Distribución Geográfica</h3>
+          <span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary" onclick="mapaFullscreen()">fullscreen</span>
+        </div>
+        <div id="mapa-ecuador" class="flex-1"></div>
+        <div class="p-sm border-t border-surface-container flex items-center gap-gutter flex-shrink-0">
+          <div class="flex items-center gap-xs"><span class="w-3 h-3 rounded-full bg-green-500 inline-block"></span><span class="font-label-md text-on-surface-variant">Normal</span></div>
+          <div class="flex items-center gap-xs"><span class="w-3 h-3 rounded-full bg-orange-500 inline-block"></span><span class="font-label-md text-on-surface-variant">Alerta</span></div>
+          <div class="flex items-center gap-xs"><span class="w-3 h-3 rounded-full bg-red-600 inline-block"></span><span class="font-label-md text-on-surface-variant">Crítico</span></div>
+        </div>
+      </section>
     </div>
-    <div id="sensors-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-      <div class="col-span-3 text-center p-xl text-on-surface-variant">Cargando estaciones...</div>
-    </div>
-  </section>
+  </div>
 
-  <!-- TENDENCIAS — ancho completo -->
+  <!-- TENDENCIAS -->
   <section class="bg-white p-xl rounded-xl shadow-sm border border-surface-container">
     <div class="flex justify-between items-end mb-lg">
       <div>
@@ -146,7 +171,7 @@ body{background-color:#f8f9fa;color:#191c1d;}
         <option value="S-006">Páramo El Ángel</option>
       </select>
     </div>
-    <canvas id="chart-calidad" height="80"></canvas>
+    <canvas id="chart-calidad" height="70"></canvas>
     <div class="pt-lg border-t border-surface-container mt-lg">
       <div class="flex justify-between items-center mb-md">
         <p class="font-label-bold text-on-surface-variant uppercase">Rango de Variación de pH</p>
@@ -171,16 +196,80 @@ body{background-color:#f8f9fa;color:#191c1d;}
 const API_BASE = '/aquasense/api';
 let historialData = {};
 let chartInstance = null;
+let mapa = null;
+let marcadores = {};
 
 document.addEventListener('DOMContentLoaded', () => {
   actualizarReloj();
   setInterval(actualizarReloj, 1000);
+  inicializarMapa();
   cargarDatos();
   setInterval(cargarDatos, 15000);
 });
 
 function actualizarReloj() {
   document.getElementById('reloj').textContent = new Date().toLocaleTimeString('es-EC');
+}
+
+function inicializarMapa() {
+  mapa = L.map('mapa-ecuador', { zoomControl: true, scrollWheelZoom: false });
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap',
+    maxZoom: 18
+  }).addTo(mapa);
+  // Centrar en Ecuador
+  mapa.setView([-1.8, -78.2], 6);
+}
+
+function crearIcono(estado) {
+  const color = estado === 'critico' ? '#dc2626' : estado === 'alerta' ? '#f97316' : '#16a34a';
+  const ring  = estado === 'critico' ? '#fee2e2' : estado === 'alerta' ? '#ffedd5' : '#dcfce7';
+  return L.divIcon({
+    className: '',
+    html: `<div style="width:22px;height:22px;border-radius:50%;background:${color};border:3px solid white;box-shadow:0 0 0 3px ${ring},0 2px 8px rgba(0,0,0,0.25);${estado==='critico'?'animation:cpulse 2s infinite':''}"></div>`,
+    iconSize: [22, 22],
+    iconAnchor: [11, 11],
+    popupAnchor: [0, -14]
+  });
+}
+
+function actualizarMarcadores(sensores) {
+  sensores.forEach(s => {
+    const d = s.datos;
+    const badgeClass = d.estado === 'critico' ? 'badge-critico' : d.estado === 'alerta' ? 'badge-alerta' : 'badge-normal';
+    const estadoText = d.estado === 'critico' ? 'CRÍTICO' : d.estado === 'alerta' ? 'ALERTA' : 'NORMAL';
+    const popup = `
+      <div class="popup-title">${s.nombre}</div>
+      <div class="popup-row"><span class="popup-label">ID</span><span class="popup-val">${s.id}</span></div>
+      <div class="popup-row"><span class="popup-label">Ubicación</span><span class="popup-val">${s.ubicacion}</span></div>
+      <div class="popup-row"><span class="popup-label">pH</span><span class="popup-val">${d.ph}</span></div>
+      <div class="popup-row"><span class="popup-label">Temperatura</span><span class="popup-val">${d.temperatura}°C</span></div>
+      <div class="popup-row"><span class="popup-label">Turbidez</span><span class="popup-val">${d.turbidez} NTU</span></div>
+      <div class="popup-row"><span class="popup-label">O₂ Disuelto</span><span class="popup-val">${d.oxigeno_disuelto} mg/L</span></div>
+      <div class="popup-row"><span class="popup-label">Calidad</span><span class="popup-val">${d.calidad}%</span></div>
+      <div class="popup-row"><span class="popup-label">Señal LoRa</span><span class="popup-val">${d.señal_lora}%</span></div>
+      <span class="popup-badge ${badgeClass}">${estadoText}</span>`;
+
+    if (marcadores[s.id]) {
+      marcadores[s.id].setIcon(crearIcono(d.estado));
+      marcadores[s.id].setPopupContent(popup);
+    } else {
+      const m = L.marker([s.lat, s.lng], { icon: crearIcono(d.estado) })
+        .bindPopup(popup, { maxWidth: 220 })
+        .addTo(mapa);
+      marcadores[s.id] = m;
+    }
+  });
+}
+
+function mapaFullscreen() {
+  const el = document.getElementById('mapa-ecuador').parentElement;
+  if (!document.fullscreenElement) {
+    el.requestFullscreen();
+  } else {
+    document.exitFullscreen();
+  }
+  setTimeout(() => mapa.invalidateSize(), 300);
 }
 
 async function cargarDatos() {
@@ -195,6 +284,7 @@ async function cargarDatos() {
     const h = await hR.json();
     historialData = h.historial;
     renderSensores(s);
+    actualizarMarcadores(s.sensores);
     actualizarStats(s, a);
     actualizarGrafico();
   } catch(e) { console.error(e); }
@@ -226,10 +316,10 @@ function renderSensores(data) {
     const badgeText   = isCrit ? 'CRÍTICO' : isAlert ? 'ALERTA' : 'NORMAL';
     const phColor     = (d.ph < 6.5 || d.ph > 8.5) ? 'text-error' : 'text-primary';
     const turbColor   = d.turbidez > 50 ? 'text-error' : 'text-primary';
-
     const card = document.createElement('div');
     card.id = `card-${s.id}`;
-    card.className = `bg-white rounded-xl shadow-sm ${borderClass} overflow-hidden`;
+    card.className = `bg-white rounded-xl shadow-sm ${borderClass} overflow-hidden cursor-pointer`;
+    card.onclick = () => { mapa.setView([s.lat, s.lng], 9); marcadores[s.id]?.openPopup(); };
     card.innerHTML = `
       <div class="p-md bg-surface-container-low flex justify-between items-center border-b border-surface-container">
         <div>
@@ -242,22 +332,22 @@ function renderSensores(data) {
         <div class="bg-background p-sm rounded-lg">
           <p class="font-label-bold text-on-surface-variant mb-xs">NIVEL DE pH</p>
           <p class="font-headline-md ${phColor}">${d.ph}</p>
-          ${getTrend(d.ph, 6.5, 8.5)}
+          ${getTrend(d.ph,6.5,8.5)}
         </div>
         <div class="bg-background p-sm rounded-lg">
           <p class="font-label-bold text-on-surface-variant mb-xs">TEMP (°C)</p>
           <p class="font-headline-md text-primary">${d.temperatura}</p>
-          ${getTrend(d.temperatura, 10, 22)}
+          ${getTrend(d.temperatura,10,22)}
         </div>
         <div class="bg-background p-sm rounded-lg">
           <p class="font-label-bold text-on-surface-variant mb-xs">TURBIDEZ</p>
           <p class="font-headline-md ${turbColor}">${d.turbidez} <span class="text-xs font-normal text-on-surface-variant">NTU</span></p>
-          ${getTrend(d.turbidez, 0, 25)}
+          ${getTrend(d.turbidez,0,25)}
         </div>
         <div class="bg-background p-sm rounded-lg">
           <p class="font-label-bold text-on-surface-variant mb-xs">O₂ DISUELTO</p>
           <p class="font-headline-md text-primary">${d.oxigeno_disuelto} <span class="text-xs font-normal text-on-surface-variant">mg/L</span></p>
-          ${getTrend(d.oxigeno_disuelto, 5, 12)}
+          ${getTrend(d.oxigeno_disuelto,5,12)}
         </div>
       </div>`;
     grid.appendChild(card);
@@ -271,10 +361,10 @@ function actualizarGrafico() {
   const ctx = document.getElementById('chart-calidad').getContext('2d');
   if (chartInstance) chartInstance.destroy();
   chartInstance = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: datos.map(d=>d.hora),
-      datasets: [
+    type:'line',
+    data:{
+      labels:datos.map(d=>d.hora),
+      datasets:[
         {label:'Calidad (%)',data:datos.map(d=>d.calidad),borderColor:'#006972',backgroundColor:'rgba(0,105,114,0.08)',borderWidth:2,pointRadius:0,tension:0.4,fill:true,yAxisID:'y'},
         {label:'pH',data:datos.map(d=>d.ph),borderColor:'#006685',backgroundColor:'transparent',borderWidth:1.5,pointRadius:0,tension:0.4,borderDash:[4,3],yAxisID:'y2'}
       ]
