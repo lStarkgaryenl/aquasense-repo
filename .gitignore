@@ -1,0 +1,25 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+/logs/
+
+# Environment
+.env
+.env.local
+
+# Dependencias (si se agregan en el futuro)
+/vendor/
+/node_modules/
+
+# Archivos temporales
+*.tmp
+*.bak

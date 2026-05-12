@@ -1,0 +1,48 @@
+name: Deploy AquaSense AI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to server via SSH
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            set -e
+
+            # Directorio destino
+            TARGET=/var/www/aquasense
+
+            # Clonar o actualizar el repositorio
+            if [ -d "$TARGET/.git" ]; then
+              echo "Actualizando repositorio..."
+              cd $TARGET
+              sudo git pull origin main
+            else
+              echo "Clonando repositorio..."
+              sudo git clone https://github.com/${{ github.repository }}.git $TARGET
+            fi
+
+            # Copiar archivos públicos
+            sudo cp -r $TARGET/public/* $TARGET/
+            sudo cp -r $TARGET/api $TARGET/
+
+            # Permisos correctos
+            sudo chown -R www-data:www-data $TARGET
+            sudo chmod -R 755 $TARGET
+
+            echo "✅ Deploy completado correctamente"
